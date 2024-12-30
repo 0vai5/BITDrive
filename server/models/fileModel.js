@@ -10,7 +10,7 @@ const fileSchema = new Schema({
         required: true
     },
     size: {
-        type: Number,
+        type: String,
         required: true
     },
     creator: {
