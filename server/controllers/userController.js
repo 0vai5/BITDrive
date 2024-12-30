@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -8,7 +7,7 @@ import {
   userUpdateSchema,
 } from "../utils/userSchemaValidation.js";
 
-export const userController = {
+const userController = {
   async signUpUser(req, res) {
     try {
       const { error } = userSignUpSchema.validate(req.body);
@@ -302,3 +301,5 @@ export const userController = {
     }
   },
 };
+
+export default userController;
