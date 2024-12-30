@@ -16,13 +16,11 @@ app.use(cors());
 
 connectDB();
 
+
 app.use("/api/user", userRouter);
 app.use("/api/file", fileRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.log("Server is running on port 8080");
 });
