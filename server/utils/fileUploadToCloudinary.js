@@ -19,8 +19,8 @@ const uploadFile = async (localFilePath) => {
     return response;
   } catch (error) {
     fs.unlinkSync(localFilePath);
-    return null;
+    return null;ں
   }
 };
 
-export default uploadFile;
+export default uploadFile
