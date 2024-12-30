@@ -4,7 +4,6 @@ import cors from "cors";
 import connectDB from "./config/db.config.js";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
-import fileRouter from "./routes/fileRoutes.js";
 
 dotenv.config();
 
@@ -17,7 +16,6 @@ app.use(cors());
 connectDB();
 
 app.use("/api/user", userRouter);
-app.use("/api/file", fileRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
