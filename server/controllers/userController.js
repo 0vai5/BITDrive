@@ -238,7 +238,7 @@ export const userController = {
         });
       }
 
-      const userDelete = await User.deleteOne(userId);
+      const userDelete = await User.deleteOne(user);
 
       if (!userDelete) {
         return res.json({
@@ -246,6 +246,8 @@ export const userController = {
           status: 400,
         });
       }
+
+      res.clearCookie("token", { path: "/" });
 
       return res.json({
         message: "Successfully Deleted the User",
