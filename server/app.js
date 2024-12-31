@@ -12,7 +12,19 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+const allowedOrigins = ["http://localhost:5173"]; // Replace with your frontend's origin
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Allow cookies
+  })
+);
 
 connectDB();
 

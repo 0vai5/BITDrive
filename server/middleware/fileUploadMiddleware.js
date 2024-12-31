@@ -1,14 +1,15 @@
-import multer from "multer";
+import multer from 'multer';
+import path from 'path';
 
-const storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "/src/my-images");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/')
   },
-  filename: function (req, file, callback) {
-    callback(null, file.fieldname);
-  },
-});
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+  }
+})
 
-const upload = multer({ storage: storage });
+var upload = multer({ storage: storage });
 
 export default upload;

@@ -7,7 +7,6 @@ const fileController = {
   async createFile(req, res) {
     try {
       const userId = req.user.id;
-
       const user = await User.findById(userId);
 
       if (!user)
@@ -20,12 +19,11 @@ const fileController = {
           .status(400)
           .json({ message: "Please upload a file", status: 400 });
 
-      const fileLocalPath = file?.file[0]?.path;
-
-      const fileLocalName = file?.file[0]?.filename;
+      const fileLocalPath = file.path;
+      const fileLocalName = file.filename;
 
       const createdFile = await fileUploadToCloudinary(fileLocalPath);
-
+      console.log("Created File", createdFile);
       if (!createdFile)
         return res
           .status(500)
@@ -33,14 +31,14 @@ const fileController = {
 
       const newFile = new File({
         name: fileLocalName,
-        url: createdFile.url,
+        accessibleLink: createdFile.url,
         size: formatBytes(createdFile.bytes),
         creator: userId,
       });
 
       await newFile.save();
 
-      await user.files.push(newFile);
+      user.files.push(newFile);
 
       await user.save();
 
