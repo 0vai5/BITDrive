@@ -1,25 +1,21 @@
 import jwt from "jsonwebtoken";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { CustomError } from "../utils/customError.js";
 
 const authenticate = async (req, res, next) => {
   try {
     const token = req.cookies.token;
 
-    if (!token) {
-      return res.json({
-        message: "You Aren't Authorized",
-        status: 401,
-      });
-    }
+    if (!token) throw new CustomError("Not Authorized", 401);
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    return res.json({
-      message: error.message,
-      status: 500,
-    });
+    return res
+      .status(error.status || 500)
+      .json(new ApiResponse(error.status || 500, error.message));
   }
 };
 
-export default authenticate
+export default authenticate;

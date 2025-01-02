@@ -2,6 +2,8 @@ import File from "../models/fileModel.js";
 import { fileUploadToCloudinary } from "../utils/fileUploadToCloudinary.js";
 import { formatBytes } from "../utils/fileSize.js";
 import User from "../models/userModel.js";
+import { ApiResponse } from "../utils/apiResponse.js";
+import { CustomError } from "../utils/customError.js";
 
 const fileController = {
   async createFile(req, res) {
@@ -9,110 +11,39 @@ const fileController = {
       const userId = req.user.id;
       const user = await User.findById(userId);
 
-      if (!user)
-        return res.status(404).json({ message: "User not found", status: 404 });
+      if (!user) throw new CustomError("User not found", 404);
 
       const file = req.file;
 
-      if (!file)
-        return res
-          .status(400)
-          .json({ message: "Please upload a file", status: 400 });
+      if (!file) throw new CustomError("Please upload a file", 400);
 
       const fileLocalPath = file.path;
-      const fileLocalName = file.filename;
+      const fileLocalName = file.originalname;
+
+      if (!fileLocalPath || !fileLocalName)
+        throw new CustomError("File not uploaded", 400);
 
       const createdFile = await fileUploadToCloudinary(fileLocalPath);
-      console.log("Created File", createdFile);
-      if (!createdFile)
-        return res
-          .status(500)
-          .json({ message: "Error uploading file", status: 500 });
+      if (!createdFile) throw new CustomError("Error uploading file", 500);
 
-      const newFile = new File({
+      const newFile = await File.create({
         name: fileLocalName,
         accessibleLink: createdFile.url,
         size: formatBytes(createdFile.bytes),
         creator: userId,
       });
 
-      await newFile.save();
-
       user.files.push(newFile);
 
       await user.save();
 
-      return res.status(201).json({
-        message: "File created successfully",
-        status: 201,
-        data: newFile,
-      });
+      return res
+        .status(201)
+        .json(new ApiResponse("File created successfully", 201, newFile));
     } catch (error) {
-      return res.status(500).json({
-        message: error.message,
-        status: 500,
-      });
-    }
-  },
-
-  async createMultipleFiles(req, res) {
-    try {
-      const userId = req.user.id;
-
-      const user = await User.findById(userId);
-
-      if (!user)
-        return res.status(404).json({ message: "User not found", status: 404 });
-
-      const files = req.files;
-
-      if (!files)
-        return res
-          .status(400)
-          .json({ message: "Please upload a file", status: 400 });
-
-      const fileLocalPaths = files?.file.map((file) => file.path);
-
-      const fileLocalNames = files?.file.map((file) => file.filename);
-
-      const createdFiles = await Promise.all(
-        fileLocalPaths.map((fileLocalPath) =>
-          fileUploadToCloudinary(fileLocalPath)
-        )
-      );
-
-      if (!createdFiles)
-        return res
-          .status(500)
-          .json({ message: "Error uploading file", status: 500 });
-
-      const newFiles = createdFiles.map((createdFile, index) => {
-        return new File({
-          name: fileLocalNames[index],
-          url: createdFile.url,
-          size: formatBytes(createdFile.bytes),
-          creator: userId,
-        });
-      });
-
-      console.log("New Files", newFiles);
-
-      await File.insertMany(newFiles);
-
-      await user.files.push(...newFiles);
-
-      await user.save();
-
-      return res.status(201).json({
-        message: "Files created successfully",
-        status: 201,
-        data: newFiles,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        message: error.message,
-        status: 500,
-      });
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
     }
   },
 
@@ -122,21 +53,15 @@ const fileController = {
 
       const files = await File.find({ category });
 
-      if (!files)
-        return res
-          .status(404)
-          .json({ message: "Files not found", status: 404 });
+      if (!files) throw new CustomError("Files not found", 404);
 
-      return res.status(200).json({
-        message: "Files fetched successfully",
-        status: 200,
-        data: files,
-      });
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "Files retrieved successfully", files));
     } catch (error) {
-      return res.status(500).json({
-        message: error.message,
-        status: 500,
-      });
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
     }
   },
   async updateFile(req, res) {
@@ -146,57 +71,50 @@ const fileController = {
 
       const file = await File.findById(fileId);
 
-      if (!file)
-        return res.status(404).json({ message: "File not found", status: 404 });
+      if (!file) throw new CustomError("File not Found", 404);
 
       file.name = name;
 
       await file.save();
 
-      return res.status(200).json({
-        message: "File updated successfully",
-        status: 200,
-        data: file,
-      });
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "File updated Successfully", file));
     } catch (error) {
-      return res.status(500).json({
-        message: error.message,
-        status: 500,
-      });
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
     }
   },
   async deleteFile(req, res) {
-    const fileId = req.params.id;
+    try {
+      const fileId = req.params.id;
 
-    const file = await File.findById(fileId);
+      const file = await File.findById(fileId);
 
-    if (!file)
-      return res.status(404).json({ message: "File not found", status: 404 });
+      if (!file) throw new CustomError("File not found", 404);
 
-    await file.remove();
+      await file.remove();
 
-    return res.status(200).json({
-      message: "File deleted successfully",
-      status: 200,
-    });
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "File deleted successfully"));
+    } catch (error) {
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
+    }
   },
   async shareFile(req, res) {
     try {
       const { email } = req.body;
       const fileId = req.params.id;
 
-      console.log("File ID", fileId);
-
       const file = await File.findById(fileId);
 
       const user = await User.findOne({ email });
 
-      if (!user) {
-        return res.status(404).json({
-          message: "User not found",
-          status: 404,
-        });
-      }
+      if (!user) throw new CustomError("User not found", 404);
 
       user.accessibleFiles.push(file);
 
@@ -206,16 +124,13 @@ const fileController = {
 
       await file.save();
 
-      return res.status(200).json({
-        message: "File shared successfully",
-        status: 200,
-        data: file,
-      });
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "File shared Successfully"));
     } catch (error) {
-      return res.status(500).json({
-        message: error.message,
-        status: 500,
-      });
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
     }
   },
 };

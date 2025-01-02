@@ -5,12 +5,6 @@ import authenticate from "../middleware/authenticate.js";
 import upload from "../middleware/fileUploadMiddleware.js";
 
 fileRouter.post("/create-file", authenticate, upload.single("file"),fileController.createFile);
-fileRouter.post(
-  "/create-multiple-files",
-  authenticate,
-  upload.array("files"),
-  fileController.createMultipleFiles
-);
 fileRouter.get(
   "/get-file-by-category/:category",
   authenticate,
