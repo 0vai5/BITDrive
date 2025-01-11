@@ -39,6 +39,7 @@ export const userController = {
         .status(201)
         .json(new ApiResponse(201, "User created successfully", user));
     } catch (error) {
+      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
