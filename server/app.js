@@ -37,10 +37,8 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-// Wrap the express app with the serverless handler
-export const handler = serverless(app);
+export default handler = serverless(app);
 
-// If running locally (not in serverless mode), listen on a port
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
