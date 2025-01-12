@@ -88,10 +88,8 @@ export const userController = {
       const user = await User.findById(id);
 
       if (!user) throw new CustomError("User not found", 404);
-      console.log("done");
       return res.status(200).json(new ApiResponse(200, "User found", user));
     } catch (error) {
-      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
@@ -127,7 +125,6 @@ export const userController = {
         .status(200)
         .json(new ApiResponse(200, "User updated", updatedUser));
     } catch (error) {
-      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
@@ -175,7 +172,6 @@ export const userController = {
   async getCurrentUser(req, res) {
     try {
       const userId = req.user.id;
-      console.log("User ID from token:", userId);
 
       const user = await User.findById(userId);
 

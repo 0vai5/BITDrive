@@ -87,7 +87,6 @@ describe("User", () => {
         token = response.data.token;
       }
     } catch (error) {
-      console.log("Error during sign-in:", error);
     }
   });
 
