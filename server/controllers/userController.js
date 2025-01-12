@@ -39,7 +39,6 @@ export const userController = {
         .status(201)
         .json(new ApiResponse(201, "User created successfully", user));
     } catch (error) {
-      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
@@ -71,7 +70,10 @@ export const userController = {
         maxAge: 3600 * 1000,
         path: "/",
       });
-      return res.status(200).json(new ApiResponse(200, "User logged in", user));
+
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "User logged in", user, token));
     } catch (error) {
       return res
         .status(error.status || 500)
@@ -81,14 +83,15 @@ export const userController = {
 
   async getUserProfile(req, res) {
     try {
-      const userId = req.params.id;
+      const { id } = req.user;
 
-      const user = await User.findById(userId);
+      const user = await User.findById(id);
 
       if (!user) throw new CustomError("User not found", 404);
-
+      console.log("done");
       return res.status(200).json(new ApiResponse(200, "User found", user));
     } catch (error) {
+      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
@@ -99,11 +102,11 @@ export const userController = {
     try {
       const { error } = userUpdateSchema.validate(req.body);
 
-      if (error) throw new CustomError(error.message, 401);
+      if (error) throw new CustomError(error.message, 400);
 
-      const userId = req.params.id;
+      const { id } = req.user;
 
-      const user = await User.findById(userId);
+      const user = await User.findById(id);
 
       if (!user) throw new CustomError("User not found", 404);
 
@@ -116,9 +119,7 @@ export const userController = {
         userObj.password = await bcrypt.hash(req.body.password, salt);
       }
 
-      if (userId !== req.user.id) throw new CustomError("Unauthorized", 401);
-
-      const updatedUser = await User.findByIdAndUpdate(userId, userObj, {
+      const updatedUser = await User.findByIdAndUpdate(id, userObj, {
         new: true,
       });
 
@@ -126,6 +127,7 @@ export const userController = {
         .status(200)
         .json(new ApiResponse(200, "User updated", updatedUser));
     } catch (error) {
+      console.log(error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
