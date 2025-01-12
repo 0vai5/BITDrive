@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
 import fileRouter from "./routes/fileRoutes.js";
 import morgan from "morgan";
-import serverless from "serverless-http";
 
 dotenv.config();
 
@@ -37,8 +36,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-export default serverless(app);
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 
-if (process.env.NODE_ENV !== "production") {
-  app.listen(port);
-}
