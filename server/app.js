@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-export default handler = serverless(app);
+export default serverless(app);
 
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => {
