@@ -6,11 +6,12 @@ import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
 import fileRouter from "./routes/fileRoutes.js";
 import morgan from "morgan";
+import serverless from "serverless-http";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT
+const port = process.env.PORT || 3000;  // Default to port 3000 if not set in environment
 
 app.use(express.json());
 app.use(cookieParser());
@@ -25,7 +26,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 connectDB();
 
@@ -36,6 +37,12 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// Wrap the express app with the serverless handler
+export const handler = serverless(app);
+
+// If running locally (not in serverless mode), listen on a port
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
