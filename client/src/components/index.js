@@ -1,5 +1,6 @@
 import Header from "./Header";
 import { Button } from "@/components/ui/button";
+import CustomForm from "./CustomForm";
 import {
   Card,
   CardContent,
@@ -168,5 +169,6 @@ export {
   TabsList,
   TabsTrigger,
   useSidebar,
-  Header
+  Header,
+  CustomForm,
 };
