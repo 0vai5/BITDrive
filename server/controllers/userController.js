@@ -65,14 +65,15 @@ export const userController = {
         expiresIn: "1d",
       });
 
-      res.cookie("token", token, {
+      const options = {
         httpOnly: true,
         maxAge: 3600 * 1000,
         path: "/",
-      });
+      }
 
       return res
         .status(200)
+        .cookie("token", token, options)
         .json(new ApiResponse(200, "User logged in", user, token));
     } catch (error) {
       return res
