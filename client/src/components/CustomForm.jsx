@@ -9,8 +9,28 @@ import {
   Input,
   Label,
 } from ".";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CustomForm = ({ FormType }) => {
+  const navigate = useNavigate();
+  const authHandler = async (formData) => {
+    const data = Object.fromEntries(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/v1/user/signin",
+        data,
+        {
+          withCredentials: true,
+        }
+      );
+      navigate("/");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center flex-col mt-8">
       <Card>
@@ -24,7 +44,7 @@ const CustomForm = ({ FormType }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form action={authHandler}>
             <div className="flex flex-col gap-6">
               {FormType === "signup" && (
                 <div className="grid gap-2">

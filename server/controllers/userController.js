@@ -66,7 +66,6 @@ export const userController = {
       });
 
       const options = {
-        httpOnly: true,
         maxAge: 3600 * 1000,
         path: "/",
       }

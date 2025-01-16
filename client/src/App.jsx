@@ -11,13 +11,15 @@ import {
   SignupPage,
   VideosPage,
 } from "@/pages";
+import Protected from "./components/Protected";
 
 const App = () => {
   return (
     <main className="bg-white">
+      
       <Router>
         <Routes>
-          <Route element={<DashboardLayout />}>
+          <Route element={<Protected><DashboardLayout /></Protected>}>
             <Route path="/" element={<HomePage />} />
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/documents" element={<DocumentsPage />} />
