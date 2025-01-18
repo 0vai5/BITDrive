@@ -1,8 +1,21 @@
-import React from 'react'
+import React from 'react';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTrigger, DialogTitle } from "@/components"
 
 const FileUploader = () => {
   return (
-    <div>FileUploader</div>
+    <Dialog>
+      <DialogTrigger>Open</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogDescription>
+            This action cannot be undone. This will permanently delete your account
+            and remove your data from our servers.
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+
   )
 }
 

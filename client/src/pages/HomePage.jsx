@@ -1,7 +1,14 @@
+import react from "react";
+import {RecentFiles, TotalStorage} from "@/components";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <main className="bg-white">
+      <div className="flex justify-center gap-3 items-center md:flex-row flex-col">
+        <RecentFiles />
+        <TotalStorage />
+      </div>
+    </main>
   )
 }
 

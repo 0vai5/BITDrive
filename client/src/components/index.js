@@ -1,3 +1,5 @@
+import RecentFiles from "./RecentFiles";
+import TotalStorage from "./TotalStorage";
 import Header from "./Header";
 import { Button } from "@/components/ui/button";
 import CustomForm from "./CustomForm";
@@ -92,6 +94,8 @@ import { AppSidebar } from "./AppSidebar";
 import FileUploader from "./FileUploader";
 
 export {
+  RecentFiles,
+  TotalStorage,
   FileUploader,
   Button,
   AppSidebar,
