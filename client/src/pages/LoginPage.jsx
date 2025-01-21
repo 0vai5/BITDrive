@@ -1,17 +1,8 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import React from "react";
 import { Button, CustomForm } from "@/components";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (Cookies.get("token")) {
-      navigate("/");
-    }
-  }, [navigate]);
 
   return (
     <main className="h-screen overflow-hidden">

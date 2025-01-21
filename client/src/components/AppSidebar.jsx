@@ -1,4 +1,4 @@
-import { Calendar, File, Home, Image, Inbox, LayoutDashboardIcon, PieChart, Search, Settings, Video } from "lucide-react"
+import { File, Image, LayoutDashboardIcon, PieChart, Video } from "lucide-react"
 
 import {
   Sidebar,
@@ -13,7 +13,6 @@ import {
 } from "@/components"
 import { Link } from "react-router-dom"
 
-// Menu items.
 const items = [
   {
     title: "Dashboard",

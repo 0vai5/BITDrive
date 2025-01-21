@@ -9,30 +9,33 @@ import {
   Input,
   Label,
 } from ".";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form"
+import { useState } from "react";
+import { loginAction, signupAction } from "@/actions/authActions";
+import { Toaster } from "@/components";
+import { toast } from "sonner";
+import {useNavigate} from "react-router-dom";
 
 const CustomForm = ({ FormType }) => {
-  const navigate = useNavigate();
-  const authHandler = async (formData) => {
-    const data = Object.fromEntries(formData);
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const { handleSubmit, register, reset, formState: { errors } } = useForm()
+  const authHandler = async data => {
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
-        data,
-        {
-          withCredentials: true,
-        }
-      );
-      navigate("/");
-      console.log(response);
+      setLoading(true);
+      if (FormType === "login") {
+        const response = await loginAction(data);
+      } else {
+        const response = await signupAction(data);
+      }
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      toast.error(error.message);
     }
   };
-
   return (
     <div className="flex justify-center items-center flex-col mt-8">
+      <Toaster />
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">
@@ -44,44 +47,49 @@ const CustomForm = ({ FormType }) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={authHandler}>
+          <form onSubmit={handleSubmit(authHandler)}>
             <div className="flex flex-col gap-6">
               {FormType === "signup" && (
                 <div className="grid gap-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
-                    id="name"
-                    name="name"
                     type="text"
                     placeholder="John Doe"
-                    required
+                    {...register("name", {
+                      required: "Name is Required",
+                      minLength: 3
+                    })}
                   />
+                  {errors.name && <span>{errors.name.message}</span>}
                 </div>
               )}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
-                  name="email"
-                  type="email"
                   placeholder="m@example.com"
-                  required
+                  {...register("email", {
+                    required: "Email is Required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
                 />
+                {errors.email && <span>{errors.email.message}</span>}
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
-                </div>
-                <Input id="password" name="password" type="password" required />
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  {...register("password", {
+                    required: "Password is Required",
+                    minLength: 6
+                  })}
+                />
+                {errors.password && <span>{errors.password.message}</span>}
               </div>
-              <Button type="submit" className="w-full" disabled={false}>
-                {FormType === "login" ? "Login" : "SignUp"}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Loading..." : FormType === "login" ? "Login" : "SignUp"}
               </Button>
             </div>
           </form>

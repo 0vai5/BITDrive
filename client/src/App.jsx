@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   AuthLayout,
@@ -11,7 +11,6 @@ import {
   SignupPage,
   VideosPage,
 } from "@/pages";
-import Protected from "./components/Protected";
 
 const App = () => {
   return (
@@ -19,7 +18,7 @@ const App = () => {
       
       <Router>
         <Routes>
-          <Route element={<Protected><DashboardLayout /></Protected>}>
+          <Route element={<DashboardLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/documents" element={<DocumentsPage />} />
