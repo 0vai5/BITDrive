@@ -9,24 +9,31 @@ import {
   Input,
   Label,
 } from ".";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { loginAction, signupAction } from "@/actions/authActions";
 import { Toaster } from "@/components";
 import { toast } from "sonner";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CustomForm = ({ FormType }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const { handleSubmit, register, reset, formState: { errors } } = useForm()
-  const authHandler = async data => {
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const authHandler = async (data) => {
     try {
       setLoading(true);
       if (FormType === "login") {
         const response = await loginAction(data);
+        console.log(response)
       } else {
         const response = await signupAction(data);
+        console.log(response)
       }
     } catch (error) {
       setLoading(false);
@@ -55,41 +62,59 @@ const CustomForm = ({ FormType }) => {
                   <Input
                     type="text"
                     placeholder="John Doe"
+                    className={`${errors.name ? "border-red-500" : ""}`}
                     {...register("name", {
                       required: "Name is Required",
-                      minLength: 3
+                      minLength: 3,
                     })}
                   />
-                  {errors.name && <span>{errors.name.message}</span>}
+                  {errors.name && (
+                    <span className="text-red-500">{errors.name.message}</span>
+                  )}
                 </div>
               )}
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   placeholder="m@example.com"
+                  className={`${errors.email ? "border-red-500" : ""}`}
                   {...register("email", {
                     required: "Email is Required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "Invalid email address"
-                    }
+                      message: "Invalid email address",
+                    },
                   })}
                 />
-                {errors.email && <span>{errors.email.message}</span>}
+                {errors.email && (
+                  <span className="text-red-500">{errors.email.message}</span>
+                )}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
                   type="password"
+                  className={`${errors.password ? "border-red-500" : ""}`}
                   {...register("password", {
                     required: "Password is Required",
-                    minLength: 6
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters long",
+                    },
                   })}
                 />
-                {errors.password && <span>{errors.password.message}</span>}
+                {errors.password && (
+                  <span className="text-red-500">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Loading..." : FormType === "login" ? "Login" : "SignUp"}
+                {loading
+                  ? "Loading..."
+                  : FormType === "login"
+                  ? "Login"
+                  : "SignUp"}
               </Button>
             </div>
           </form>

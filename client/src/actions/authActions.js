@@ -1,10 +1,26 @@
-export const loginAction = async (data) => {
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
+import axios from "axios";
+
+export const loginAction = async (formData) => {
+  try {
+    const { data, error } = await axios.post(
+      "http://localhost:3000/api/v1/user/signin",
+      formData
+    );
     console.log("Login Action", data);
     return data;
+  } catch (error) {
+    console.log(error, "error");
+  }
 };
-export const signupAction = async (data) => {
-    await new Promise((resolve, reject) => setTimeout(resolve, 1000));
-    console.log("Signup Action", data);
-    return data
+export const signupAction = async (formData) => {
+  try {
+    const { data, error } = await axios.post(
+      "http://localhost:3000/api/v1/user/signup",
+      formData
+    );
+    console.log("Login Action", data);
+    return data;
+  } catch (error) {
+    console.log(error, "error");
+  }
 };
