@@ -13,6 +13,7 @@ const RedirectIfAuthenticated = ({ children }) => {
                     withCredentials: true
                 });
 
+
                 if (status === 200) {
                     setIsLoggedIn(true);
                 } else {
@@ -20,12 +21,17 @@ const RedirectIfAuthenticated = ({ children }) => {
                 }
             } catch (error) {
                 setIsLoggedIn(false);
+                console.log("error Occured", error.message);
             } finally {
                 setLoading(false);
             }
         };
         fetchUser();
     }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return isLoggedIn ? <Navigate to="/" /> : children;
 };

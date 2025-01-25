@@ -20,12 +20,18 @@ const Protected = ({ children }) => {
                 }
             } catch (error) {
                 setIsLoggedIn(false);
+                console.log("error Occured", error.message);
             } finally {
                 setLoading(false);
             }
         };
         fetchUser();
     }, []);
+
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return isLoggedIn ? children : <Navigate to="/login" />;
 };
