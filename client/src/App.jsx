@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Protected, RedirectIfAuthenticated } from "@/components"
 import {
   AuthLayout,
   DashboardLayout,
@@ -15,17 +16,16 @@ import {
 const App = () => {
   return (
     <main className="bg-white">
-      
       <Router>
         <Routes>
-          <Route element={<DashboardLayout />}>
+          <Route element={<Protected><DashboardLayout /></Protected>}>
             <Route path="/" element={<HomePage />} />
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/documents" element={<DocumentsPage />} />
             <Route path="/images" element={<ImagesPage />} />
             <Route path="/others" element={<OthersPage />} />
           </Route>
-          <Route element={<AuthLayout />}>
+          <Route element={<RedirectIfAuthenticated><AuthLayout /></RedirectIfAuthenticated>}>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
           </Route>

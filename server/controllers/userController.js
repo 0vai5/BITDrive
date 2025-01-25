@@ -68,7 +68,10 @@ export const userController = {
       const options = {
         maxAge: 3600 * 1000,
         path: "/",
-      }
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "strict",
+      };
 
       return res
         .status(200)

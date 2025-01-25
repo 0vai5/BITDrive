@@ -29,11 +29,15 @@ const CustomForm = ({ FormType }) => {
     try {
       setLoading(true);
       if (FormType === "login") {
-        const response = await loginAction(data);
-        console.log(response)
+        const response = await loginAction(data, { withCredentials: true });
+        console.log(response);
+        setLoading(false);
+        navigate("/");
       } else {
-        const response = await signupAction(data);
-        console.log(response)
+        const response = await signupAction(data, { withCredentials: true });
+        console.log(response);
+        setLoading(false);
+        navigate("/login")
       }
     } catch (error) {
       setLoading(false);

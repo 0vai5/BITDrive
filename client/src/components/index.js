@@ -92,8 +92,12 @@ import { Toaster } from "@/components/ui/sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppSidebar } from "./AppSidebar";
 import FileUploader from "./FileUploader";
+import Protected from "./Protected";
+import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 
 export {
+  Protected,
+  RedirectIfAuthenticated,
   RecentFiles,
   TotalStorage,
   FileUploader,

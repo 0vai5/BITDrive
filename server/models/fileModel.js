@@ -23,5 +23,5 @@ const fileSchema = new Schema({
     }]
 })
 
-const File = mongoose.model("File", fileSchema);
+const File = mongoose.model("driveFiles", fileSchema);
 export default File;
