@@ -14,6 +14,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  storage: {
+    type: number
+  },
   files: [
     {
       type: Schema.Types.ObjectId,

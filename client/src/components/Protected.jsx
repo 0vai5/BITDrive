@@ -20,7 +20,6 @@ const Protected = ({ children }) => {
                 }
             } catch (error) {
                 setIsLoggedIn(false);
-                console.log("error Occured", error.message);
             } finally {
                 setLoading(false);
             }
