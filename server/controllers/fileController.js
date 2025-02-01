@@ -46,7 +46,21 @@ const fileController = {
         .json(new ApiResponse(error.status || 500, error.message));
     }
   },
+  async getAllFileOfUsers(req, res) {
+    try {
+      const { id } = req.user;
 
+      const files = await File.find({ creator: id });
+
+      if (!files) throw new CustomError("Files not found", 404);
+
+      return res.status(200).json(new ApiResponse(200, "Files retrieved successfully", files));
+      
+    } catch (error) {
+      return res.status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
+    }
+  },
   async getFileByCategory(req, res) {
     try {
       const category = req.params.category;
