@@ -7,5 +7,6 @@ import VideosPage from "./VideosPage";
 import DocumentsPage from "./DocumentsPage";
 import ImagesPage from "./ImagesPage";
 import OthersPage from "./OthersPage";
+import AudioPage from "./AudioPage";
 
-export { HomePage, LoginPage, SignupPage, AuthLayout, DashboardLayout, VideosPage, DocumentsPage, ImagesPage, OthersPage };
+export { HomePage, LoginPage, SignupPage, AuthLayout, DashboardLayout, VideosPage, AudioPage,DocumentsPage, ImagesPage, OthersPage };

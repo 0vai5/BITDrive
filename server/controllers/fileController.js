@@ -4,6 +4,7 @@ import { formatBytes } from "../utils/fileSize.js";
 import User from "../models/userModel.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { CustomError } from "../utils/customError.js";
+import { DocumentType } from "../utils/documentType.js";
 
 const fileController = {
   async createFile(req, res) {
@@ -31,6 +32,7 @@ const fileController = {
         accessibleLink: createdFile.url,
         size: formatBytes(createdFile.bytes),
         creator: userId,
+        type: DocumentType(fileLocalName)
       });
 
       user.files.push(newFile);

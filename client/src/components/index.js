@@ -94,8 +94,10 @@ import { AppSidebar } from "./AppSidebar";
 import FileUploader from "./FileUploader";
 import Protected from "./Protected";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
+import FileLogo from "./FileLogo";
 
 export {
+  FileLogo,
   Protected,
   RedirectIfAuthenticated,
   RecentFiles,

@@ -1,4 +1,4 @@
-import { File, Image, LayoutDashboardIcon, PieChart, Video } from "lucide-react"
+import { File, FileAudioIcon, Image, LayoutDashboardIcon, PieChart, Video } from "lucide-react"
 
 import {
   Sidebar,
@@ -28,6 +28,11 @@ const items = [
     title: "Videos",
     url: "/videos",
     icon: Video,
+  },
+  {
+    title: "Audios",
+    url: "/audios",
+    icon: FileAudioIcon
   },
   {
     title: "Documents",

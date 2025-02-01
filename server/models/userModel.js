@@ -15,7 +15,7 @@ const userSchema = new Schema({
     required: true,
   },
   storage: {
-    type: number
+    type: Number
   },
   files: [
     {

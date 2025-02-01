@@ -11,6 +11,7 @@ import {
   OthersPage,
   SignupPage,
   VideosPage,
+  AudioPage
 } from "@/pages";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route element={<Protected><DashboardLayout /></Protected>}>
             <Route path="/" element={<HomePage />} />
             <Route path="/videos" element={<VideosPage />} />
+            <Route path="/audios" element={<AudioPage />} />
             <Route path="/documents" element={<DocumentsPage />} />
             <Route path="/images" element={<ImagesPage />} />
             <Route path="/others" element={<OthersPage />} />
