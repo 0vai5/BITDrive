@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { FileLogo, Toaster } from '@/components'
+import axios from "axios"
 import { toast } from 'sonner';
 
 const RecentFiles = () => {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
-    const getFiles = async () => {
+    const getUserFiles = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/api/v1/file/getUserFiles", {
+
+        const {data} = await axios.get("http://localhost:3000/api/v1/file/getUserFiles", {
           withCredentials: true
         });
-        setFiles(data);
+
+        setFiles(data.data)
+
       } catch (error) {
-        toast.error('Failed to fetch files');
+        toast.error(error.message);
       }
     };
 
-    getFiles().catch(err => console.log(err));
-  }, []);
+    getUserFiles()
+  }, [])
+
 
   return (
     <div className='h-1/2 w-1/2 bg-white p-4 rounded-md shadow-md'>

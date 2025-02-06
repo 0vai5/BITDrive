@@ -95,8 +95,26 @@ import FileUploader from "./FileUploader";
 import Protected from "./Protected";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import FileLogo from "./FileLogo";
+import StorageChart from "./StorageChart"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+} from "./ui/chart"
+
 
 export {
+
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  ChartStyle,
+  StorageChart,
   FileLogo,
   Protected,
   RedirectIfAuthenticated,

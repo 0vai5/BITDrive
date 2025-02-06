@@ -57,7 +57,7 @@ const fileController = {
       if (!files) throw new CustomError("Files not found", 404);
 
       return res.status(200).json(new ApiResponse(200, "Files retrieved successfully", files));
-      
+
     } catch (error) {
       return res.status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
@@ -149,6 +149,20 @@ const fileController = {
         .json(new ApiResponse(error.status || 500, error.message));
     }
   },
+  async getTotalStorage(req, res) {
+    try {
+      const { id } = req.user;
+
+      const user = await User.findById(id);
+
+      if (!user) throw new CustomError("User not found", 404);
+
+      return res.status(200).json(new ApiResponse(200, "Total Storage Retrieved", user.storage))
+
+    } catch (error) {
+      return res.status(error.status || 500).json(new ApiResponse(error.status || 500, error.message))
+    }
+  }
 };
 
 export default fileController;
