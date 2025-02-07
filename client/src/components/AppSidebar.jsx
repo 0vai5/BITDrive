@@ -9,7 +9,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  FileUploader
+  FileUploader,
+  LogoutBtn
 } from "@/components"
 import { Link } from "react-router-dom"
 
@@ -77,6 +78,17 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
                   <FileUploader />
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <LogoutBtn />
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

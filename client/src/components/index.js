@@ -104,10 +104,10 @@ import {
   ChartLegendContent,
   ChartStyle,
 } from "./ui/chart"
-
+import LogoutBtn from "./LogoutBtn"
 
 export {
-
+  LogoutBtn,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
