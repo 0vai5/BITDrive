@@ -11,7 +11,7 @@ const connectDB = async () => {
     connection.isConnected = db.connections[0].readyState;
     console.log("DB Connected");
   } catch (error) {
-    console.log("DB not Connected", error)
+    console.log("DB not Connected", error.message)
     process.exit(1);
   }
 };
