@@ -3,6 +3,7 @@ import TotalStorage from "./TotalStorage";
 import Header from "./Header";
 import { Button } from "@/components/ui/button";
 import CustomForm from "./CustomForm";
+import FileCard from "./FileCard";
 import {
   Card,
   CardContent,
@@ -124,6 +125,7 @@ export {
   Button,
   AppSidebar,
   Card,
+  FileCard,
   CardContent,
   CardDescription,
   CardFooter,

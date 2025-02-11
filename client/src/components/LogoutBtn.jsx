@@ -26,7 +26,10 @@ const LogoutBtn = () => {
     return (
         <>
             <Toaster />
-            <Button><LogOut /> Logout</Button>
+            <div className="w-full flex justify-center items-center">
+                <Button size="lg"><LogOut /> Logout</Button>
+            </div>
+            
         </>
     )
 };
