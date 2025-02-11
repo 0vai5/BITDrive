@@ -7,7 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components"
-import { EllipsisVertical, PencilIcon, Share, Trash } from "lucide-react"
+import { EllipsisVertical, PencilIcon, Trash } from "lucide-react"
 
 const FileCard = ({
     file
@@ -26,7 +26,6 @@ const FileCard = ({
                         <DropdownMenuContent>
                             <DropdownMenuLabel>Options</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem><Share /> Share</DropdownMenuItem>
                             <DropdownMenuItem><PencilIcon /> Update</DropdownMenuItem>
                             <DropdownMenuItem><Trash />Delete</DropdownMenuItem>
                         </DropdownMenuContent>

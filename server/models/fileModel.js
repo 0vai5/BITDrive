@@ -20,11 +20,7 @@ const fileSchema = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    },
-    accessors: [{
-        type: Schema.Types.ObjectId,
-        ref: "User"
-    }]
+    }
 })
 
 const File = mongoose.model("driveFiles", fileSchema);

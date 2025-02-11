@@ -22,13 +22,7 @@ const userSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "File",
     },
-  ],
-  accessibleFiles: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "File",
-    },
-  ],
+  ]
 });
 
 const User = mongoose.model("driveUser", userSchema);

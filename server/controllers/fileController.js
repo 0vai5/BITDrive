@@ -121,34 +121,6 @@ const fileController = {
         .json(new ApiResponse(error.status || 500, error.message));
     }
   },
-  async shareFile(req, res) {
-    try {
-      const { email } = req.body;
-      const fileId = req.params.id;
-
-      const file = await File.findById(fileId);
-
-      const user = await User.findOne({ email });
-
-      if (!user) throw new CustomError("User not found", 404);
-
-      user.accessibleFiles.push(file);
-
-      await user.save();
-
-      file.accessors.push(user);
-
-      await file.save();
-
-      return res
-        .status(200)
-        .json(new ApiResponse(200, "File shared Successfully"));
-    } catch (error) {
-      return res
-        .status(error.status || 500)
-        .json(new ApiResponse(error.status || 500, error.message));
-    }
-  },
   async getTotalStorage(req, res) {
     try {
       const { id } = req.user;
