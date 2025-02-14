@@ -3,6 +3,7 @@ import TotalStorage from "./TotalStorage";
 import Header from "./Header";
 import { Button } from "@/components/ui/button";
 import CustomForm from "./CustomForm";
+import Loader from "./Loader"
 import FileCard from "./FileCard";
 import {
   Card,
@@ -138,6 +139,7 @@ export {
   DialogFooter,
   DialogHeader,
   DialogOverlay,
+  Loader,
   DialogPortal,
   DialogTitle,
   DialogTrigger,

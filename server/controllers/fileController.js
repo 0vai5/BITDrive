@@ -67,7 +67,7 @@ const fileController = {
     try {
       const category = req.params.category;
 
-      const files = await File.find({ category });
+      const files = await File.find({ type: category });
 
       if (!files) throw new CustomError("Files not found", 404);
 

@@ -1,6 +1,7 @@
 import react, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { Navigate } from "react-router-dom"
+import {Loader} from "@/components"
 
 const RedirectIfAuthenticated = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,7 +30,7 @@ const RedirectIfAuthenticated = ({ children }) => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return isLoggedIn ? <Navigate to="/" /> : children;

@@ -37,7 +37,7 @@ const CustomForm = ({ FormType }) => {
         const response = await signupAction(data, { withCredentials: true });
         console.log(response);
         setLoading(false);
-        navigate("/login")
+        navigate("/login");
       }
     } catch (error) {
       setLoading(false);
@@ -115,7 +115,7 @@ const CustomForm = ({ FormType }) => {
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading
-                  ? "Loading..."
+                  ? "Authenticating"
                   : FormType === "login"
                   ? "Login"
                   : "SignUp"}

@@ -2,7 +2,7 @@ import React from 'react'
 
 const TotalStorage = () => {
   return (
-    <div className='h-1/2 w-1/2 bg-white p-4 rounded-md shadow-md'>
+    <div className='h-1/2 md:w-1/2 w-full bg-white p-4 rounded-md shadow-md'>
     <h1 className='text-2xl font-semibold'>Storage</h1>
     <p>The total storage used by you out of 2GBs</p>
     

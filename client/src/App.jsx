@@ -19,8 +19,8 @@ const App = () => {
     <main className="bg-white">
       <Router>
         <Routes>
-          {/* <Route element={<Protected><DashboardLayout /></Protected>}> */}
-          <Route element={<DashboardLayout />}>
+          <Route element={<Protected><DashboardLayout /></Protected>}>
+          {/* <Route element={<DashboardLayout />}> */}
             <Route path="/" element={<HomePage />} />
             <Route path="/videos" element={<VideosPage />} />
             <Route path="/audios" element={<AudioPage />} />

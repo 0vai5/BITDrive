@@ -9,7 +9,7 @@ const LogoutBtn = () => {
     const logoutHandler = async () => {
         try {
 
-            const { data } = await axios.get("https://localhost:3000/api/v1/user/logout", {
+            const { data } = await axios.get("http://localhost:3000/api/v1/user/logout", {
                 withCredentials: true
             });
 
@@ -27,7 +27,7 @@ const LogoutBtn = () => {
         <>
             <Toaster />
             <div className="w-full flex justify-center items-center">
-                <Button size="lg"><LogOut /> Logout</Button>
+                <Button size="lg" onClick={logoutHandler}><LogOut /> Logout</Button>
             </div>
             
         </>
