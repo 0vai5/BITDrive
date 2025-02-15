@@ -4,7 +4,7 @@ import {RecentFiles, TotalStorage} from "@/components";
 const HomePage = () => {
   return (
     <main className="bg-white m-10">
-      <div className="flex justify-between gap-3 items-center md:flex-row flex-col">
+      <div className="flex justify-between gap-3 md:flex-row flex-col">
         <TotalStorage />
         <RecentFiles />
       </div>

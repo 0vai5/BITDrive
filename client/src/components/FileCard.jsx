@@ -12,8 +12,10 @@ import { EllipsisVertical, PencilIcon, Trash } from "lucide-react"
 const FileCard = ({
     file
 }) => {
+    const formattedDate = new Date(file.createdAt).toLocaleDateString();
+
     return (
-        <Card>
+        <Card className="flex justify-between flex-col ">
             <CardHeader>
                 <div className="flex justify-between items-center gap-3">
                     <div className="flex gap-3 items-center">
@@ -35,7 +37,7 @@ const FileCard = ({
             <CardContent>
                 <CardDescription>
                     <h1>{file.size}</h1>
-                    <span>{file.createdAt}</span>
+                    <span>{formattedDate}</span>
                 </CardDescription>
             </CardContent>
         </Card>

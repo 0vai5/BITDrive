@@ -14,7 +14,9 @@ const RecentFiles = () => {
           withCredentials: true
         });
 
-        setFiles(data.data)
+        // THE LAST 5 FILES
+
+        setFiles(data.data.slice(-5))
 
       } catch (error) {
         toast.error(error.message);
