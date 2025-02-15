@@ -23,7 +23,7 @@ const FileUploader = () => {
     formData.append("file", data.file[0]);
 
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/file/create-file", formData, {
+      const res = await axios.post("http://localhost:3000/api/v1/file/createFile", formData, {
         withCredentials: true,
       });
 

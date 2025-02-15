@@ -16,6 +16,8 @@ const ImagesPage = () => {
           }
         );
 
+        console.log(data, "data")
+
         setFiles(data.data);
 
         if (data.data.length <= 0) {

@@ -43,6 +43,7 @@ const fileController = {
         .status(201)
         .json(new ApiResponse("File created successfully", 201, newFile));
     } catch (error) {
+      console.log(error, "error")
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));

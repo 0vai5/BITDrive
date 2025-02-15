@@ -17,8 +17,8 @@ const FileCard = ({
             <CardHeader>
                 <div className="flex justify-between items-center gap-3">
                     <div className="flex gap-3 items-center">
-                        <FileLogo type={"document"} />
-                        <CardTitle>hello</CardTitle>
+                        <FileLogo type={file.type} />
+                        <CardTitle>{file.name}</CardTitle>
                     </div>
 
                     <DropdownMenu>
@@ -34,8 +34,8 @@ const FileCard = ({
             </CardHeader>
             <CardContent>
                 <CardDescription>
-                    <h1>Size: 2.3MB</h1>
-                    <span>Created: 12/12/2021</span>
+                    <h1>{file.size}</h1>
+                    <span>{file.createdAt}</span>
                 </CardDescription>
             </CardContent>
         </Card>
