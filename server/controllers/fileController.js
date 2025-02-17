@@ -111,7 +111,7 @@ const fileController = {
 
       if (!file) throw new CustomError("File not found", 404);
 
-      await file.remove();
+      await file.deleteOne({_id: fileId});
 
       return res
         .status(200)

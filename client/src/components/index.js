@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import CustomForm from "./CustomForm";
 import Loader from "./Loader"
 import FileCard from "./FileCard";
+import DeleteDialog from "./DeleteDialog"
 import {
   Card,
   CardContent,
@@ -107,6 +108,7 @@ import {
   ChartStyle,
 } from "./ui/chart"
 import LogoutBtn from "./LogoutBtn"
+import RenameDialog from "./RenameDialog";
 
 export {
   LogoutBtn,
@@ -181,6 +183,7 @@ export {
   SidebarHeader,
   SidebarInput,
   SidebarInset,
+  RenameDialog,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuBadge,
@@ -194,6 +197,7 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
+  DeleteDialog,
   Tooltip,
   TooltipContent,
   TooltipProvider,
