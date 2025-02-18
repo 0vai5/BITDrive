@@ -1,9 +1,11 @@
+import { Toaster } from "@/components";
 import { Outlet } from "react-router-dom";
 
 const AuthLayout = () => {
   return (
     <div className="flex justify-center h-screen overflow-visible md:overflow-hidden">
       <div className="w-1/2 bg-red-200 hidden md:flex justify-between flex-col p-5 ">
+      <Toaster />
         <div>
           <div className="layoutHead p-5">
             <img
