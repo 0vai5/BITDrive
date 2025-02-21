@@ -36,7 +36,7 @@ const fileController = {
       });
 
       user.files.push(newFile);
-      user.storage = createdFile.bytes;
+      user.storage += createdFile.bytes;
       await user.save();
 
       return res
