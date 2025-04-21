@@ -25,7 +25,7 @@ const fileController = {
         throw new CustomError("File not uploaded", 400);
 
       const createdFile = await fileUploadToCloudinary(fileLocalPath);
-      if (!createdFile) throw new CustomError("Error uploading file", 500);
+      if (!createdFile) throw new CustomError("File not uploaded", 400);
 
       const newFile = await File.create({
         name: fileLocalName,
@@ -36,7 +36,7 @@ const fileController = {
       });
 
       user.files.push(newFile);
-      user.storage += createdFile.bytes;
+      user.storage += parseInt(createdFile.bytes);
       await user.save();
 
       return res

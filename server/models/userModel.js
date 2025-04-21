@@ -17,6 +17,7 @@ const userSchema = new Schema(
     },
     storage: {
       type: Number,
+      default: 0,
     },
     files: [
       {
@@ -34,6 +35,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model("driveUser", userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;

@@ -99,25 +99,11 @@ import Protected from "./Protected";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import FileLogo from "./FileLogo";
 import StorageChart from "./StorageChart"
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
-} from "./ui/chart"
 import LogoutBtn from "./LogoutBtn"
 import RenameDialog from "./RenameDialog";
 
 export {
   LogoutBtn,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
-  ChartStyle,
   StorageChart,
   FileLogo,
   Protected,

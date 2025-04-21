@@ -10,7 +10,7 @@ import morgan from "morgan";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;  // Default to port 3000 if not set in environment
+const port = process.env.PORT || 3000;  
 
 app.use(express.json());
 app.use(cookieParser());
@@ -23,6 +23,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 app.use(morgan('dev'));

@@ -29,5 +29,5 @@ const fileSchema = new Schema({
     timestamps: true
 })
 
-const File = mongoose.model("driveFiles", fileSchema);
+const File = mongoose.model("Files", fileSchema);
 export default File;

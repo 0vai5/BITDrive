@@ -23,7 +23,7 @@ const FileCard = ({ file }) => {
 
 
   return (
-    <Card className="flex justify-between flex-col ">
+    <Card className="flex justify-between flex-col overflow-hidden shadow-md border-2 border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out">
       <CardHeader>
         <div className="flex justify-between items-center gap-3">
           <div className="flex gap-3 items-center">
