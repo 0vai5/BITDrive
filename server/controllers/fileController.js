@@ -67,10 +67,17 @@ const fileController = {
   async getFileByCategory(req, res) {
     try {
       const category = req.params.category;
+      const {id} = req.user;
 
-      const files = await File.find({ type: category });
+      const user = await User.findById(id);
+
+      if (!user) throw new CustomError("User not found", 404);
+
+      const files = await File.find({ creator: id, type: category });
 
       if (!files) throw new CustomError("Files not found", 404);
+
+      
 
       return res
         .status(200)
