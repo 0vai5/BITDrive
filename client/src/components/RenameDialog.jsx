@@ -19,7 +19,7 @@ import { toast } from "sonner";
 const RenameDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState(rename);
 
   useEffect(() => {
     setNewName(rename);
@@ -51,10 +51,15 @@ const RenameDialog = ({ rename, id }) => {
         }
       );
 
+      console.log("Response data:", data);
+
       toast.success(data.message);
 
       setLoading(false);
       setIsOpen(false);
+
+      setNewName("");
+      window.location.reload();
     } catch (error) {
       console.error(error.message);
       setLoading(false);
@@ -79,7 +84,7 @@ const RenameDialog = ({ rename, id }) => {
           <Input
             type="text"
             {...register("rename", { required: true })}
-            value={rename}
+            value={newName}
             onChange={(e) => setNewName(e.target.value)}
           />
           <Button

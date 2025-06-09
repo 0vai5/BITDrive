@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "jest",
-    "dev": "nodemon app.js"
+    "dev": "npx nodemon app.js"
   },
   "keywords": [],
   "author": "",
