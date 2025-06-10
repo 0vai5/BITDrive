@@ -13,14 +13,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   DeleteDialog,
-  RenameDialog
+  RenameDialog,
 } from "@/components";
 import { EllipsisVertical, PencilIcon, Trash } from "lucide-react";
 
 const FileCard = ({ file }) => {
   const formattedDate = new Date(file.createdAt).toLocaleDateString();
-
-
 
   return (
     <Card className="flex justify-between flex-col overflow-hidden shadow-md border-2 border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out">
@@ -39,12 +37,12 @@ const FileCard = ({ file }) => {
               <DropdownMenuLabel>Options</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
-                <DropdownMenuItem>
-                  <DeleteDialog id={file._id}/>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <RenameDialog rename={file.name} id={file._id}/>
-                </DropdownMenuItem>
+              <DropdownMenuItem>
+                <DeleteDialog id={file._id} />
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <RenameDialog rename={file.name} id={file._id} />
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

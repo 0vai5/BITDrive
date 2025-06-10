@@ -15,6 +15,7 @@ import { loginAction, signupAction } from "@/actions/authActions";
 import { Toaster } from "@/components";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { MoonLoader } from "react-spinners";
 
 const CustomForm = ({ FormType }) => {
   const navigate = useNavigate();
@@ -115,7 +116,7 @@ const CustomForm = ({ FormType }) => {
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading
-                  ? "Authenticating"
+                  ? <MoonLoader size={20} color="black" />
                   : FormType === "login"
                   ? "Login"
                   : "SignUp"}

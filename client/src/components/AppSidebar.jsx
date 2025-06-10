@@ -12,7 +12,7 @@ import {
   FileUploader,
   LogoutBtn
 } from "@/components"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 const items = [
   {
@@ -50,9 +50,9 @@ const items = [
 export function AppSidebar() {
   return (
     <Sidebar>
-      <SidebarContent>
-        <div className="p-4">
-          <img src="/logo-transparent.png" alt="logo" width={150} height={150} />
+      <SidebarContent className={"bg-[#FECACA]"}>
+        <div className="p-2">
+          <img src="/logo-transparent.png" alt="logo" width={125} height={125} />
         </div>
         <SidebarGroup>
           <SidebarGroupLabel>Files</SidebarGroupLabel>
@@ -61,10 +61,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link to={item.url}>
+                    <NavLink to={item.url}>
                       <item.icon  className="text-3xl font-semibold" />
                       <span className="text-xl font-semibold">{item.title}</span>
-                    </Link>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
