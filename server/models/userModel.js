@@ -19,12 +19,6 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
-    files: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "File",
-      },
-    ],
     createdAt: {
       type: Date,
       default: Date.now,

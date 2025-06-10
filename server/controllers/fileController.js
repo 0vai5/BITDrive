@@ -35,7 +35,6 @@ const fileController = {
         type: DocumentType(fileLocalName)
       });
 
-      user.files.push(newFile);
       user.storage += parseInt(createdFile.bytes);
       await user.save();
 

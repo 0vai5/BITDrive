@@ -1,22 +1,21 @@
-import { File, FileAudio, Image, PieChartIcon, Video } from 'lucide-react'
 import React from 'react'
 
 const FileLogo = ({type}) => {
   switch (type) {
     case 'document': 
-      return <File size={24} />
+      return <img src='/document.svg' alt='Document File' />
       break;
     case 'image':
-      return <Image size={24} />
+      return <img src='/gallery.png' alt='Image File' />
       break;
     case 'audio':
-      return <FileAudio size={24} />
+      return <img src="/audio.png" alt="Audio File" />
       break;
     case 'video':
-      return <Video size={24} /> 
+      return <img src="/video.png" alt="Video File" />
       break;
     default:
-      return <PieChartIcon size={24} />
+      return <img src="/others.png" alt="Other File" />
 
   
   }
