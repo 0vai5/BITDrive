@@ -29,7 +29,7 @@ const ShareDialog = ({ id }) => {
     try {
       const { data } = await axios.post("http://localhost:3000/api/v1/shareFile/share", {
         fileID: id,
-        emails: email.trim(),
+        email: email.trim(),
       });
 
       console.log(data.data);
