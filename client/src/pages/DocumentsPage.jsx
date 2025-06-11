@@ -1,7 +1,7 @@
-import { FileCard, Toaster } from '@/components';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { toast } from 'sonner';
+import { FileCard, Toaster } from "@/components";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const DocumentsPage = () => {
   const [files, setFiles] = useState([]);
@@ -34,17 +34,17 @@ const DocumentsPage = () => {
     <main className="bg-white m-10">
       <Toaster />
       <h1 className="text-3xl font-semibold text-gray-800 mb-3">Documents</h1>
-      <div className="grid md:grid-cols-4 grid-cols-1 gap-4">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {files.length > 0 ? (
-          files.map((file, index) => (
-            <FileCard key={index} file={file} />
-          ))
+          files.map((file, index) => <FileCard key={index} file={file} />)
         ) : (
-          <div className="text-gray-400 w-full">No files found for this category</div>
+          <div className="text-gray-400 w-full">
+            No files found for this category
+          </div>
         )}
       </div>
-    </main >
-  )
-}
+    </main>
+  );
+};
 
-export default DocumentsPage
+export default DocumentsPage;
