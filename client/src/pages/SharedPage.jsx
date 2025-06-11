@@ -6,10 +6,16 @@ import { toast } from "sonner";
 const SharedPage = () => {
   const [files, setFiles] = useState([]);
 
+  // TODO: It will be coming from the global context
+
+  const user = {
+    _id: 1
+  }
+
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/api/v1/file/getSharedFiles/`,
+        `http://localhost:3000/api/v1/shareFile/getSharedFiles/${user._id}`,
         {
           withCredentials: true,
         }

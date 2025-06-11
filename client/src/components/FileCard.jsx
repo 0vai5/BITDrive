@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
   DeleteDialog,
   RenameDialog,
+  ShareDialog,
 } from "@/components";
 import { Download, EllipsisVertical, PencilIcon, PenSquare, Share2, Trash } from "lucide-react";
 
@@ -44,7 +45,7 @@ const FileCard = ({ file }) => {
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center">
                 <Share2 color="#C7483B" fontWeight={800} />
-                Share
+                <ShareDialog id={file._id} />
               </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center">
                 <Download color="#C7483B" fontWeight={800} />

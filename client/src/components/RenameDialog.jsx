@@ -30,28 +30,26 @@ const RenameDialog = ({ rename, id }) => {
     setIsOpen(true);
   };
 
-  const handleRename = async () => {
-    if (rename === newName) {
+  const handleRename = async (form) => {
+    if (rename === form.name) {
       toast.error("Please enter a new name");
       return;
     }
 
-    console.log("Old name:", rename);
-    console.log("New name:", newName);
+    const extention = rename.split(".");
+    const updatedName = `${form.name}.${extention[1]}`;
 
     try {
       setLoading(true);
       const { data } = await axios.patch(
         `http://localhost:3000/api/v1/file/updateFile/${id}`,
         {
-          name: newName,
+          name: updatedName,
         },
         {
           withCredentials: true,
         }
       );
-
-      console.log("Response data:", data);
 
       toast.success(data.message);
 
@@ -83,9 +81,9 @@ const RenameDialog = ({ rename, id }) => {
           <Label htmlFor="rename">Rename</Label>
           <Input
             type="text"
-            {...register("rename", { required: true })}
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
+            {...register("name", { required: true })}
+            // value={newName}
+            // onChange={(e) => setNewName(e.target.value)}
           />
           <Button
             variant={"destructive"}

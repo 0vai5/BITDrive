@@ -101,8 +101,12 @@ import FileLogo from "./FileLogo";
 import StorageChart from "./StorageChart"
 import LogoutBtn from "./LogoutBtn"
 import RenameDialog from "./RenameDialog";
+import ShareDialog from "./ShareDialog";
+import { Badge } from "./ui/badge";
 
 export {
+  Badge,
+  ShareDialog,
   LogoutBtn,
   StorageChart,
   FileLogo,
