@@ -1,4 +1,12 @@
-import { File, FileAudioIcon, Image, LayoutDashboardIcon, PieChart, Video } from "lucide-react"
+import {
+  File,
+  FileAudioIcon,
+  Image,
+  LayoutDashboardIcon,
+  PieChart,
+  Video,
+  Share2,
+} from "lucide-react";
 
 import {
   Sidebar,
@@ -9,10 +17,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  FileUploader,
-  LogoutBtn
-} from "@/components"
-import { Link, NavLink } from "react-router-dom"
+  LogoutBtn,
+} from "@/components";
+import { Link, NavLink } from "react-router-dom";
 
 const items = [
   {
@@ -33,7 +40,7 @@ const items = [
   {
     title: "Audios",
     url: "/audios",
-    icon: FileAudioIcon
+    icon: FileAudioIcon,
   },
   {
     title: "Documents",
@@ -45,14 +52,24 @@ const items = [
     url: "/others",
     icon: PieChart,
   },
-]
+  {
+    title: "Shared With Me",
+    url: "/shared",
+    icon: Share2,
+  },
+];
 
 export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarContent className={"bg-[#FECACA]"}>
-        <div className="p-2">
-          <img src="/logo-transparent.png" alt="logo" width={125} height={125} />
+        <div className="p-2 flex justify-center items-center">
+          <img
+            src="/logo-transparent.png"
+            alt="logo"
+            width={125}
+            height={125}
+          />
         </div>
         <SidebarGroup>
           <SidebarGroupLabel>Files</SidebarGroupLabel>
@@ -62,24 +79,14 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url}>
-                      <item.icon  className="text-3xl font-semibold" />
-                      <span className="text-xl font-semibold">{item.title}</span>
+                      <item.icon className="text-3xl font-semibold" />
+                      <span className="text-xl font-semibold">
+                        {item.title}
+                      </span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>Add a File</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <FileUploader />
-                </SidebarMenuButton>
-              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -96,5 +103,5 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
     </Sidebar>
-  )
+  );
 }
