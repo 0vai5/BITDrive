@@ -3,56 +3,53 @@ import { CustomError } from "../utils/customError.js";
 import shareFiles from "../models/shareFilesModel.js";
 import User from "../models/userModel.js";
 import File from "../models/fileModel.js";
+import mongoose from "mongoose";
 
 const shareFilesController = {
   async getFiles(req, res) {
     try {
-      const { id } = req.params.id;
+      console.log("Fetching shared files for user ID:", req.params.id);
+      const { id } = req.params;
 
       const user = await User.findById(id);
+
       if (!user) {
         throw new CustomError("User Not Exist", 400);
       }
 
       const sharedFiles = await shareFiles.aggregate([
         {
+          $match: {
+            recipientID: new mongoose.Types.ObjectId(id),
+          },
+        },
+        {
           $lookup: {
-            from: "Users",
+            from: "users", // FIXED
             localField: "senderID",
             foreignField: "_id",
             as: "senderDetails",
           },
         },
-        {
-          $unwind: "$senderDetails",
-        },
+        { $unwind: "$senderDetails" },
         {
           $lookup: {
-            from: "Users",
+            from: "users", // FIXED
             localField: "recipientID",
             foreignField: "_id",
             as: "recipientDetails",
           },
         },
-        {
-          $unwind: "$recipientDetails",
-        },
-        {
-          $match: {
-            recipientID: id,
-          },
-        },
+        { $unwind: "$recipientDetails" },
         {
           $lookup: {
-            from: "Files",
+            from: "files", // FIXED
             localField: "file",
             foreignField: "_id",
             as: "fileDetails",
           },
         },
-        {
-          $unwind: "$fileDetails",
-        },
+        { $unwind: "$fileDetails" },
         {
           $project: {
             _id: 1,
@@ -96,6 +93,7 @@ const shareFilesController = {
           )
         );
     } catch (error) {
+      console.error("Error fetching shared files:", error);
       return res
         .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));

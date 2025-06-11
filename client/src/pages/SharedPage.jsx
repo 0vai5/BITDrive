@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Toaster, FileCard } from "@/components";
+import { Toaster, FileCard, FileLogo } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -9,13 +9,13 @@ const SharedPage = () => {
   // TODO: It will be coming from the global context
 
   const user = {
-    _id: 1
-  }
+    _id: 1,
+  };
 
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/api/v1/shareFile/getSharedFiles/${user._id}`,
+        `http://localhost:3000/api/v1/shareFile/getSharedFiles/680658edc5d04984d3fdb809`,
         {
           withCredentials: true,
         }
@@ -44,7 +44,11 @@ const SharedPage = () => {
       </h1>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {files.length > 0 ? (
-          files.map((file, index) => <FileCard key={index} file={file} />)
+          files.map((file, index) => (
+            <div key={index}>
+              {file.fileDetails.name}
+            </div>
+          ))
         ) : (
           <div className="text-gray-400 w-full">
             No files found for this category
