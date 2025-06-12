@@ -40,7 +40,7 @@ const CustomForm = ({ FormType }) => {
       if (FormType === "login") {
         const response = await loginAction(data, { withCredentials: true });
         toast.success(response.message);
-        dispatch(setUser(response.data.user));
+        dispatch(setUser(response.data));
         dispatch(setIsLoggedIn(true));
         navigate("/");
       } else {
