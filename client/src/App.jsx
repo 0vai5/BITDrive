@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Protected, RedirectIfAuthenticated } from "@/components";
 import {
@@ -14,8 +14,17 @@ import {
   AudioPage,
   SharedPage,
 } from "@/pages";
+import { useDispatch } from "react-redux";
+import { fetchCurrentUser } from "./features/global/globalSlice";
 
 const App = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <main className="bg-white">
         <Routes>

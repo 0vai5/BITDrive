@@ -16,6 +16,12 @@ import { Toaster } from "@/components";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { MoonLoader } from "react-spinners";
+import { useDispatch } from "react-redux";
+import {
+  setIsLoading,
+  setUser,
+  setIsLoggedIn,
+} from "../features/global/globalSlice";
 
 const CustomForm = ({ FormType }) => {
   const navigate = useNavigate();
@@ -26,23 +32,27 @@ const CustomForm = ({ FormType }) => {
     reset,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
+
   const authHandler = async (data) => {
     try {
       setLoading(true);
       if (FormType === "login") {
         const response = await loginAction(data, { withCredentials: true });
-        console.log(response);
-        setLoading(false);
+        toast.success(response.message);
+        dispatch(setUser(response.data.user));
+        dispatch(setIsLoggedIn(true));
         navigate("/");
       } else {
         const response = await signupAction(data, { withCredentials: true });
-        console.log(response);
-        setLoading(false);
+        toast.success(response.message);
         navigate("/login");
       }
+      reset();
     } catch (error) {
-      setLoading(false);
       toast.error(error.message);
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
   return (
@@ -115,11 +125,13 @@ const CustomForm = ({ FormType }) => {
                 )}
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading
-                  ? <MoonLoader size={20} color="black" />
-                  : FormType === "login"
-                  ? "Login"
-                  : "SignUp"}
+                {loading ? (
+                  <MoonLoader size={20} color="black" />
+                ) : FormType === "login" ? (
+                  "Login"
+                ) : (
+                  "SignUp"
+                )}
               </Button>
             </div>
           </form>

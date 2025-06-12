@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Toaster, FileCard, FileLogo } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const SharedPage = () => {
   const [files, setFiles] = useState([]);
 
-  // TODO: It will be coming from the global context
-
-  const user = {
-    _id: 1,
-  };
+  const user = useSelector((state) => state.global.user);
 
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:3000/api/v1/shareFile/getSharedFiles/680658edc5d04984d3fdb809`,
+        `http://localhost:3000/api/v1/shareFile/getSharedFiles/${user._id}`,
         {
           withCredentials: true,
         }
@@ -45,9 +42,7 @@ const SharedPage = () => {
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {files.length > 0 ? (
           files.map((file, index) => (
-            <div key={index}>
-              {file.fileDetails.name}
-            </div>
+            <div key={index}>{file.fileDetails.name}</div>
           ))
         ) : (
           <div className="text-gray-400 w-full">

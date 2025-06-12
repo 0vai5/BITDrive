@@ -3,8 +3,13 @@ import { Button, Toaster } from "@/components"
 import { LogOut } from "lucide-react"
 import axios from "axios";
 import { toast } from "sonner"
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { resetGlobalState } from "@/features/global/globalSlice";
 
 const LogoutBtn = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const logoutHandler = async () => {
         try {
@@ -14,7 +19,11 @@ const LogoutBtn = () => {
             });
 
             toast.success(data.message);
-            window.location.href = "/login";
+
+            dispatch(resetGlobalState());
+
+
+            navigate("/login");
 
 
         } catch (error) {

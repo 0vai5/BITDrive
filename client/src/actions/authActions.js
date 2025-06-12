@@ -7,10 +7,9 @@ export const loginAction = async (formData, config) => {
       formData,
       config
     );
-    console.log("Login Action", data);
     return data;
   } catch (error) {
-    console.log(error, "error");
+    throw new Error(error.message || "Login failed");
   }
 };
 export const signupAction = async (formData, config) => {
@@ -20,9 +19,9 @@ export const signupAction = async (formData, config) => {
       formData,
       config
     );
-    console.log("Login Action", data);
     return data;
   } catch (error) {
     console.log(error, "error");
+    throw new Error(error.message || "Signup failed");
   }
 };
