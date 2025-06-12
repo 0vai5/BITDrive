@@ -40,11 +40,21 @@ const CustomForm = ({ FormType }) => {
       if (FormType === "login") {
         const response = await loginAction(data, { withCredentials: true });
         toast.success(response.message);
+
+        if(response.status !== 200) {
+          throw new Error(response.message || "Login failed");
+        }
+
         dispatch(setUser(response.data));
         dispatch(setIsLoggedIn(true));
         navigate("/");
       } else {
         const response = await signupAction(data, { withCredentials: true });
+
+         if(response.status !== 201) {
+          throw new Error(response.message || "Signup failed");
+        }
+
         toast.success(response.message);
         navigate("/login");
       }
@@ -53,6 +63,7 @@ const CustomForm = ({ FormType }) => {
       toast.error(error.message);
     } finally {
       dispatch(setIsLoading(false));
+      setLoading(false);
     }
   };
   return (
