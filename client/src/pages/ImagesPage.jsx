@@ -2,36 +2,39 @@ import React, { useEffect, useState } from "react";
 import { FileCard, Toaster } from "@/components";
 import { toast } from "sonner";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ImagesPage = () => {
   const [files, setFiles] = useState([]);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
+
+  const fetchFiles = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/v1/file/getFileByCategory/image",
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log(data, "data");
+
+      setFiles(data.data);
+
+      if (data.data.length <= 0) {
+        toast.success("No Files found for this category");
+        return;
+      }
+      toast.success(data.message);
+    } catch (error) {
+      toast.error("Failed to fetch files");
+    }
+  };
 
   useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:3000/api/v1/file/getFileByCategory/image",
-          {
-            withCredentials: true,
-          }
-        );
-
-        console.log(data, "data");
-
-        setFiles(data.data);
-
-        if (data.data.length <= 0) {
-          toast.success("No Files found for this category");
-          return;
-        }
-        toast.success(data.message);
-      } catch (error) {
-        toast.error("Failed to fetch files");
-      }
-    };
-
     fetchFiles();
-  }, []);
+  }, [isUpdating]);
+  
   return (
     <main className="bg-white m-10">
       <Toaster />

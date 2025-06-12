@@ -2,34 +2,36 @@ import React, { useEffect, useState } from "react";
 import { FileCard } from "@/components";
 import { toast, Toaster } from "sonner";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const VideosPage = () => {
   const [files, setFiles] = useState([]);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
 
-  useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:3000/api/v1/file/getFileByCategory/video",
-          {
-            withCredentials: true,
-          }
-        );
-
-        setFiles(data.data);
-
-        if (data.data.length <= 0) {
-          toast.success("No Files found for this category");
-          return;
+  const fetchFiles = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/v1/file/getFileByCategory/video",
+        {
+          withCredentials: true,
         }
-        toast.success(data.message);
-      } catch (error) {
-        toast.error("Failed to fetch files");
-      }
-    };
+      );
 
+      setFiles(data.data);
+
+      if (data.data.length <= 0) {
+        toast.success("No Files found for this category");
+        return;
+      }
+      toast.success(data.message);
+    } catch (error) {
+      toast.error("Failed to fetch files");
+    }
+  };
+  
+  useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [isUpdating]);
+
   return (
     <main className="bg-white m-10">
       <Toaster />

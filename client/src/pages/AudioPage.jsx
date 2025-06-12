@@ -2,34 +2,36 @@ import React, { useState, useEffect } from "react";
 import { FileCard, Toaster } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
+import { useSelector } from "react-redux";
 
 const AudioPage = () => {
   const [files, setFiles] = useState([]);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
 
-  useEffect(() => {
-    const fetchFiles = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:3000/api/v1/file/getFileByCategory/audio",
-          {
-            withCredentials: true,
-          }
-        );
-
-        setFiles(data.data);
-
-        if (data.data.length <= 0) {
-          toast.success("No Files found for this category");
-          return;
+  const fetchFiles = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/v1/file/getFileByCategory/audio",
+        {
+          withCredentials: true,
         }
-        toast.success(data.message);
-      } catch (error) {
-        toast.error("Failed to fetch files");
-      }
-    };
+      );
 
+      setFiles(data.data);
+
+      if (data.data.length <= 0) {
+        toast.success("No Files found for this category");
+        return;
+      }
+      toast.success(data.message);
+    } catch (error) {
+      toast.error("Failed to fetch files");
+    }
+  };
+  
+  useEffect(() => {
     fetchFiles();
-  }, []);
+  }, [isUpdating]);
 
   return (
     <main className="bg-white m-10">

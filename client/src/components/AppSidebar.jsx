@@ -20,6 +20,7 @@ import {
   LogoutBtn,
 } from "@/components";
 import { Link, NavLink } from "react-router-dom";
+import UserDetails from "./UserDetails";
 
 const items = [
   {
@@ -61,17 +62,17 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar variant={"floating"}>
       <SidebarContent className={"bg-[#FECACA]"}>
-        <div className="p-2 flex justify-center items-center">
+        <div className=" flex justify-center items-center">
           <img
             src="/logo-transparent.png"
             alt="logo"
-            width={125}
-            height={125}
+            width={110}
+            height={110}
           />
         </div>
-        <SidebarGroup>
+        <SidebarGroup className="py-0">
           <SidebarGroupLabel>Files</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -87,6 +88,17 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                 <UserDetails />
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
