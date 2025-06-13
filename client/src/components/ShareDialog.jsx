@@ -48,7 +48,7 @@ const ShareDialog = ({ id }) => {
 
   return (
     <>
-      <button onClick={handleOpen}>Rename</button>
+      <button onClick={handleOpen}>Share</button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>

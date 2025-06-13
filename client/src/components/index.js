@@ -1,6 +1,5 @@
 import RecentFiles from "./RecentFiles";
 import TotalStorage from "./TotalStorage";
-import Header from "./Header";
 import { Button } from "@/components/ui/button";
 import CustomForm from "./CustomForm";
 import Loader from "./Loader"
@@ -103,8 +102,10 @@ import LogoutBtn from "./LogoutBtn"
 import RenameDialog from "./RenameDialog";
 import ShareDialog from "./ShareDialog";
 import { Badge } from "./ui/badge";
+import SharedFileCard from "./SharedFileCard";
 
 export {
+  SharedFileCard,
   Badge,
   ShareDialog,
   LogoutBtn,
@@ -199,6 +200,5 @@ export {
   TabsList,
   TabsTrigger,
   useSidebar,
-  Header,
   CustomForm,
 };

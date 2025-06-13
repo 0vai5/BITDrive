@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Toaster, FileCard, FileLogo } from "@/components";
+import { Toaster, FileCard, FileLogo, SharedFileCard } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
@@ -17,6 +17,8 @@ const SharedPage = () => {
           withCredentials: true,
         }
       );
+
+      console.log(data.data);
 
       setFiles(data.data);
 
@@ -42,7 +44,7 @@ const SharedPage = () => {
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {files.length > 0 ? (
           files.map((file, index) => (
-            <div key={index}>{file.fileDetails.name}</div>
+            <SharedFileCard key={index} file={file} />
           ))
         ) : (
           <div className="text-gray-400 w-full">

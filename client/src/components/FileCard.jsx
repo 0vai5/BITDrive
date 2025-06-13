@@ -47,10 +47,6 @@ const FileCard = ({ file }) => {
                 <Share2 color="#C7483B" fontWeight={800} />
                 <ShareDialog id={file._id} />
               </DropdownMenuItem>
-              <DropdownMenuItem className="flex items-center">
-                <Download color="#C7483B" fontWeight={800} />
-                Download
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
