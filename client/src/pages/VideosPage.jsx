@@ -24,7 +24,7 @@ const VideosPage = () => {
       }
       toast.success(data.message);
     } catch (error) {
-      toast.error("Failed to fetch files");
+      toast.error(error.response?.data?.message || "Failed to fetch files");
     }
   };
   

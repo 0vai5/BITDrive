@@ -21,7 +21,7 @@ const RecentFiles = () => {
 
         setFiles(data.data.slice(-5));
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error.response?.data?.message || "Failed to fetch files");
       }
     };
 

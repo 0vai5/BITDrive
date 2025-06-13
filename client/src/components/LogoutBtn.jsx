@@ -27,7 +27,7 @@ const LogoutBtn = () => {
 
 
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.response?.data?.message || "Logout failed");
         }
     };
 
@@ -35,8 +35,8 @@ const LogoutBtn = () => {
     return (
         <>
             <Toaster />
-            <div className="w-full flex justify-center items-center">
-                <Button size="lg" onClick={logoutHandler}><LogOut /> Logout</Button>
+            <div className="w-full flex justify-center items-center p-1">
+                <Button size="lg" className="bg-red-500 hover:bg-red-600 text-white w-full" onClick={logoutHandler}><LogOut /> Logout</Button>
             </div>
             
         </>

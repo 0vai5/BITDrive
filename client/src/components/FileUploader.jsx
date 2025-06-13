@@ -50,7 +50,7 @@ const FileUploader = () => {
       toast.success("File Uploaded Successfully!");
       reset();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "File upload failed");
     } finally {
       setLoading(false);
       setOpen(false);

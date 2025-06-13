@@ -10,10 +10,14 @@ import {
 } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsUpdating } from "@/features/global/globalSlice";
 
 const OptionDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
+  const dispatch = useDispatch();
 
   const handleOpen = (event) => {
     event.preventDefault();
@@ -30,17 +34,13 @@ const OptionDialog = ({ rename, id }) => {
         }
       );
 
-      console.log(data);
-
       setIsOpen(false);
       toast.success(data.message);
 
-      window.location.reload();
-
+      dispatch(setIsUpdating(!isUpdating));
       setLoading(false);
     } catch (error) {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error.response?.data?.message || "Deletion failed");
       setLoading(false);
     }
   };

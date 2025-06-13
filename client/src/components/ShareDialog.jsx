@@ -12,10 +12,14 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { MoonLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsUpdating } from "@/features/global/globalSlice";
 
 const ShareDialog = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const isUpdating = useSelector((state) => state.global.isUpdating);
 
   const handleOpen = (event) => {
     event.preventDefault();
@@ -34,10 +38,10 @@ const ShareDialog = ({ id }) => {
         withCredentials: true,
       });
 
-      console.log(data.data);
       toast.success("File shared successfully");
+      dispatch(setIsUpdating(!isUpdating));
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Sharing failed");
     } finally {
       setLoading(false);
       setIsOpen(false);

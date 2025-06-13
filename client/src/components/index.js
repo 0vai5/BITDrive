@@ -97,19 +97,21 @@ import FileUploader from "./FileUploader";
 import Protected from "./Protected";
 import RedirectIfAuthenticated from "./RedirectIfAuthenticated";
 import FileLogo from "./FileLogo";
-import StorageChart from "./StorageChart"
 import LogoutBtn from "./LogoutBtn"
 import RenameDialog from "./RenameDialog";
 import ShareDialog from "./ShareDialog";
 import { Badge } from "./ui/badge";
 import SharedFileCard from "./SharedFileCard";
+import UserDetails from "./UserDetails";
+import { Progress } from "./ui/progress";
 
 export {
+  Progress,
+  UserDetails,
   SharedFileCard,
   Badge,
   ShareDialog,
   LogoutBtn,
-  StorageChart,
   FileLogo,
   Protected,
   RedirectIfAuthenticated,

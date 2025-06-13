@@ -8,7 +8,6 @@ import mongoose from "mongoose";
 const shareFilesController = {
   async getFiles(req, res) {
     try {
-      console.log("Fetching shared files for user ID:", req.params.id);
       const { id } = req.params;
 
       const user = await User.findById(id);

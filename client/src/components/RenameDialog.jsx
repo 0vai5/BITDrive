@@ -15,11 +15,15 @@ import {
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsUpdating } from "@/features/global/globalSlice";
 
 const RenameDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [newName, setNewName] = useState(rename);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNewName(rename);
@@ -57,11 +61,10 @@ const RenameDialog = ({ rename, id }) => {
       setIsOpen(false);
 
       setNewName("");
-      window.location.reload();
+      dispatch(setIsUpdating(!isUpdating));
     } catch (error) {
-      console.error(error.message);
       setLoading(false);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Failed to rename file");
     }
   };
 

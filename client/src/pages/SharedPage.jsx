@@ -18,7 +18,6 @@ const SharedPage = () => {
         }
       );
 
-      console.log(data.data);
 
       setFiles(data.data);
 
@@ -28,7 +27,7 @@ const SharedPage = () => {
       }
       toast.success(data.message);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message);
     }
   };
 
