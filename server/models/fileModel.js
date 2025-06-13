@@ -27,6 +27,10 @@ const fileSchema = new Schema(
       type: Date,
       default: Date.now,
     },
+    cloudinaryId: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

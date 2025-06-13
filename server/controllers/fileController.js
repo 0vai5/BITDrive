@@ -5,6 +5,7 @@ import User from "../models/userModel.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { CustomError } from "../utils/customError.js";
 import { DocumentType } from "../utils/documentType.js";
+import { v2 as Cloudinary } from "cloudinary";
 
 const fileController = {
   async createFile(req, res) {
@@ -32,7 +33,8 @@ const fileController = {
         accessibleLink: createdFile.url,
         size: formatBytes(createdFile.bytes),
         creator: userId,
-        type: DocumentType(fileLocalName)
+        type: DocumentType(fileLocalName),
+        cloudinaryId: createdFile.public_id,
       });
 
       user.storage += parseInt(createdFile.bytes);
@@ -55,17 +57,19 @@ const fileController = {
 
       if (!files) throw new CustomError("Files not found", 404);
 
-      return res.status(200).json(new ApiResponse(200, "Files retrieved successfully", files));
-
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "Files retrieved successfully", files));
     } catch (error) {
-      return res.status(error.status || 500)
+      return res
+        .status(error.status || 500)
         .json(new ApiResponse(error.status || 500, error.message));
     }
   },
   async getFileByCategory(req, res) {
     try {
       const category = req.params.category;
-      const {id} = req.user;
+      const { id } = req.user;
 
       const user = await User.findById(id);
 
@@ -74,8 +78,6 @@ const fileController = {
       const files = await File.find({ creator: id, type: category });
 
       if (!files) throw new CustomError("Files not found", 404);
-
-      
 
       return res
         .status(200)
@@ -116,7 +118,15 @@ const fileController = {
 
       if (!file) throw new CustomError("File not found", 404);
 
-      await file.deleteOne({_id: fileId});
+      const deleteResponse = await Cloudinary.uploader.destroy(
+        file.cloudinaryId
+      );
+
+      if (deleteResponse.result !== "ok") {
+        throw new CustomError("Failed to delete file from Cloudinary", 500);
+      }
+
+      await file.deleteOne({ _id: fileId });
 
       return res
         .status(200)
@@ -135,12 +145,15 @@ const fileController = {
 
       if (!user) throw new CustomError("User not found", 404);
 
-      return res.status(200).json(new ApiResponse(200, "Total Storage Retrieved", user.storage))
-
+      return res
+        .status(200)
+        .json(new ApiResponse(200, "Total Storage Retrieved", user.storage));
     } catch (error) {
-      return res.status(error.status || 500).json(new ApiResponse(error.status || 500, error.message))
+      return res
+        .status(error.status || 500)
+        .json(new ApiResponse(error.status || 500, error.message));
     }
-  }
+  },
 };
 
 export default fileController;

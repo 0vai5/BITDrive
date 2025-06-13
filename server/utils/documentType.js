@@ -7,6 +7,8 @@ export const DocumentType = (fileName) => {
         return "video";
     } else if(fileExtension === "jpg" || fileExtension === "jpeg" || fileExtension === "png" || fileExtension === "gif"){
         return "image";
+    } else if (fileExtension === "mp3" || fileExtension === "wav" || fileExtension === "flac") {
+        return "audio";
     } else {
         return "other";
     }
