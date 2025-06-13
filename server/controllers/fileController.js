@@ -118,6 +118,12 @@ const fileController = {
 
       if (!file) throw new CustomError("File not found", 404);
 
+      const user = await User.findById(file.creator);
+
+      if (!user) throw new CustomError("User not found", 404);
+      user.storage -= parseInt(file.size);
+      await user.save();
+
       const deleteResponse = await Cloudinary.uploader.destroy(
         file.cloudinaryId
       );

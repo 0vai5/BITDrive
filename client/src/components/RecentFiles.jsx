@@ -3,30 +3,32 @@ import { FileLogo, Toaster } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
+import { useDispatch, useSelector } from "react-redux";
 
 const RecentFiles = () => {
   const [files, setFiles] = useState([]);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
+  const dispatch = useDispatch();
 
+  const getUserFiles = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:3000/api/v1/file/getUserFiles",
+        {
+          withCredentials: true,
+        }
+      );
+
+      // THE LAST 5 FILES
+
+      setFiles(data.data.slice(-5));
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to fetch files");
+    }
+  };
   useEffect(() => {
-    const getUserFiles = async () => {
-      try {
-        const { data } = await axios.get(
-          "http://localhost:3000/api/v1/file/getUserFiles",
-          {
-            withCredentials: true,
-          }
-        );
-
-        // THE LAST 5 FILES
-
-        setFiles(data.data.slice(-5));
-      } catch (error) {
-        toast.error(error.response?.data?.message || "Failed to fetch files");
-      }
-    };
-
     getUserFiles();
-  }, []);
+  }, [isUpdating]);
 
   return (
     <div className="h-1/2 md:w-full w-1/2 bg-white p-4 rounded-md shadow-md">
@@ -44,7 +46,9 @@ const RecentFiles = () => {
                 <div className="flex flex-col truncate">
                   <p className="text-sm font-medium truncate">{file.name}</p>
                   <p className="text-xs text-gray-500">
-                     {formatDistanceToNow(new Date(file.createdAt), { addSuffix: true })}
+                    {formatDistanceToNow(new Date(file.createdAt), {
+                      addSuffix: true,
+                    })}
                   </p>
                 </div>
               </div>

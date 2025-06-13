@@ -20,6 +20,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
 import { MoonLoader } from "react-spinners";
+import { setIsUpdating } from "@/features/global/globalSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const FileUploader = () => {
   const {
@@ -30,6 +32,8 @@ const FileUploader = () => {
   } = useForm();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const isUpdating = useSelector((state) => state.global.isUpdating);
+  const dispatch = useDispatch();
 
   const fileSubmission = async (data) => {
     setOpen(true);
@@ -48,6 +52,7 @@ const FileUploader = () => {
       );
 
       toast.success("File Uploaded Successfully!");
+      dispatch(setIsUpdating(!isUpdating));
       reset();
     } catch (error) {
       toast.error(error.response?.data?.message || "File upload failed");

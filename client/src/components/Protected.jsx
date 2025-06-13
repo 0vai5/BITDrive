@@ -7,9 +7,6 @@ const Protected = ({ children }) => {
   const isLoggedIn = useSelector((state) => state.global.isLoggedIn);
   const isLoading = useSelector((state) => state.global.isLoading);
 
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return isLoggedIn ? children : <Navigate to="/login" />;
 };

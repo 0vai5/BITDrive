@@ -68,7 +68,7 @@ const activePath = ({ isActive }) =>
 
 export function AppSidebar() {
   return (
-    <Sidebar variant={"floating"}>
+    <Sidebar variant={"inset"}>
       <SidebarContent
         className={"bg-[#FECACA] flex flex-col h-full justify-center"}
       >
