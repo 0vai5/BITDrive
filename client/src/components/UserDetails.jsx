@@ -23,7 +23,7 @@ const UserCard = () => {
   const user = useSelector((state) => state.global.user) ||
     { name: "", email: "", storage: 0 };
   const totalBytes = 5368709120;
-  const usagePercent = 90;
+  const usagePercent = Math.min(Math.round((user.storage / totalBytes) * 100), 100); // Ensure usagePercent does not exceed 100
 
   return (
     <div className="bg-gray-50 shadow-md rounded-lg p-5 w-full">
