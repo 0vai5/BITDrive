@@ -1,24 +1,40 @@
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardFooter, CardTitle } from '.'
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  FileLogo,
+} from ".";
+import { format, formatDistanceToNow } from "date-fns";
 
-const SharedFileCard = ({file}) => {
+const SharedFileCard = ({ file }) => {
+  const { fileDetails, senderDetails, createdAt } = file;
+
   return (
-   <Card>
-    <CardHeader>
-        <CardTitle className="text-lg font-semibold">{file.fileDetails.name}</CardTitle>
-        <CardDescription className="text-sm text-gray-500">
-            Shared by: {file.senderDetails.name}
-        </CardDescription>
-    </CardHeader>
-    <CardContent>
-        <div className="text-sm text-gray-700">
-            <p>File Type: {file.fileDetails.type}</p>
-            <p>Size: {file.fileDetails.size}</p>
-            <p>Shared On: {new Date(file.createdAt).toLocaleDateString()}</p>
+    <Card className="hover:shadow-md transition-shadow duration-300">
+      <CardHeader>
+        <div className="flex items-center gap-3 mb-2">
+          <FileLogo type={fileDetails.type} />
+          <CardTitle className="text-base font-semibold">
+            {fileDetails.name}
+          </CardTitle>
         </div>
-    </CardContent>
-   </Card>
-  )
-}
+        <CardDescription className="text-sm text-muted-foreground">
+          Shared by: {senderDetails.name}
+        </CardDescription>
+      </CardHeader>
 
-export default SharedFileCard
+      <CardContent>
+        <div className="flex flex-col text-sm text-gray-700 gap-1">
+          <p className="capitalize">Type: {fileDetails.type}</p>
+          <p>Size: {fileDetails.size}</p>
+          <p>Date: {formatDistanceToNow(new Date(file.createdAt), { addSuffix: true })}</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default SharedFileCard;

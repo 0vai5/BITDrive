@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { FileLogo, Toaster } from '@/components'
-import axios from "axios"
-import { toast } from 'sonner';
+import React, { useEffect, useState } from "react";
+import { FileLogo, Toaster } from "@/components";
+import axios from "axios";
+import { toast } from "sonner";
+import { formatDistanceToNow } from "date-fns";
 
 const RecentFiles = () => {
   const [files, setFiles] = useState([]);
@@ -9,38 +10,49 @@ const RecentFiles = () => {
   useEffect(() => {
     const getUserFiles = async () => {
       try {
-
-        const {data} = await axios.get("http://localhost:3000/api/v1/file/getUserFiles", {
-          withCredentials: true
-        });
+        const { data } = await axios.get(
+          "http://localhost:3000/api/v1/file/getUserFiles",
+          {
+            withCredentials: true,
+          }
+        );
 
         // THE LAST 5 FILES
 
-        setFiles(data.data.slice(-5))
-
+        setFiles(data.data.slice(-5));
       } catch (error) {
         toast.error(error.message);
       }
     };
 
-    getUserFiles()
-  }, [])
-
+    getUserFiles();
+  }, []);
 
   return (
-    <div className='h-1/2 md:w-2/3 w-full bg-white p-4 rounded-md shadow-md'>
+    <div className="h-1/2 md:w-2/3 w-full bg-white p-4 rounded-md shadow-md">
       <Toaster />
-      <h1 className='text-2xl font-semibold'>Recent Files</h1>
+      <h1 className="text-2xl font-semibold">Recent Files</h1>
       <div className="flex gap-2 justify-between flex-col items-center">
         {files && files.length > 0 ? (
           files.map((file) => (
-            <div key={file._id} className="flex justify-between items-center w-full">
-              <div className="flex gap-2 justify-start items-center p-2">
+            <div
+              key={file._id}
+              className="flex justify-between items-center w-full px-3 py-2 border rounded-md hover:shadow-sm transition"
+            >
+              <div className="flex items-center gap-3 w-1/2">
                 <FileLogo type={file.type} />
-                <p className="text-sm">{file.name}</p>
+                <div className="flex flex-col truncate">
+                  <p className="text-sm font-medium truncate">{file.name}</p>
+                  <p className="text-xs text-gray-500">
+                     {formatDistanceToNow(new Date(file.createdAt), { addSuffix: true })}
+                  </p>
+                </div>
               </div>
-              <div className='flex justify-end items-center'>
-              <p className="text-sm">{file.size}</p>
+              <div className="flex flex-col items-end text-sm">
+                <span className="text-gray-700">{file.size}</span>
+                <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                  {file.type.toUpperCase()}
+                </span>
               </div>
             </div>
           ))

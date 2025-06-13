@@ -17,9 +17,10 @@ import {
   ShareDialog,
 } from "@/components";
 import { Download, EllipsisVertical, PencilIcon, PenSquare, Share2, Trash } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 const FileCard = ({ file }) => {
-  const formattedDate = new Date(file.createdAt).toLocaleDateString();
+  const formattedDate = formatDistanceToNow(new Date(file.createdAt), { addSuffix: true })
 
   return (
     <Card className="flex justify-between flex-col overflow-hidden shadow-md border-2 border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out w-full">
