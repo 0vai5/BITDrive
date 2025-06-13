@@ -31,7 +31,7 @@ const RecentFiles = () => {
   }, [isUpdating]);
 
   return (
-    <div className="h-1/2 md:w-full w-1/2 bg-white p-4 rounded-md shadow-md">
+    <div className="h-1/2 w-full bg-white p-4 rounded-md shadow-md">
       <Toaster />
       <h1 className="text-2xl font-semibold mb-1">Recent Files</h1>
       <div className="flex gap-2 justify-between w-full flex-col items-center">
