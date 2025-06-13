@@ -3,8 +3,8 @@ import {RecentFiles, TotalStorage} from "@/components";
 
 const HomePage = () => {
   return (
-    <main className="bg-white m-10">
-      <div className="flex justify-between gap-3 md:flex-row flex-col">
+    <main className="bg-white md:m-10 m-0">
+      <div className="flex justify-between gap-3 flex-col">
         <TotalStorage />
         <RecentFiles />
       </div>

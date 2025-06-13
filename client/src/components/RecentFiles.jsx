@@ -29,15 +29,15 @@ const RecentFiles = () => {
   }, []);
 
   return (
-    <div className="h-1/2 md:w-2/3 w-full bg-white p-4 rounded-md shadow-md">
+    <div className="h-1/2 md:w-full w-1/2 bg-white p-4 rounded-md shadow-md">
       <Toaster />
-      <h1 className="text-2xl font-semibold">Recent Files</h1>
-      <div className="flex gap-2 justify-between flex-col items-center">
+      <h1 className="text-2xl font-semibold mb-1">Recent Files</h1>
+      <div className="flex gap-2 justify-between w-full flex-col items-center">
         {files && files.length > 0 ? (
           files.map((file) => (
             <div
               key={file._id}
-              className="flex justify-between items-center w-full px-3 py-2 border rounded-md hover:shadow-sm transition"
+              className="flex justify-between hover:-translate-y-1 items-center w-full px-3 py-2 border rounded-md hover:shadow-sm transition"
             >
               <div className="flex items-center gap-3 w-1/2">
                 <FileLogo type={file.type} />
