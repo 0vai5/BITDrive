@@ -44,7 +44,7 @@ const FileUploader = () => {
 
     try {
       const res = await axios.post(
-        "https://bitdrive-server.vercel.app/api/v1/file/createFile",
+        "http://localhost:3000/api/v1/file/createFile",
         formData,
         {
           withCredentials: true,
@@ -67,7 +67,7 @@ const FileUploader = () => {
       <Toaster />
       <DialogTrigger asChild>
         <button
-          className="fixed bottom-6 right-6 z-[9999] bg-[#C7483B] hover:bg-[#C44B3A] text-white p-4 rounded-full shadow-lg flex items-center justify-center"
+         className="fixed bottom-6 right-6 z-[9999] bg-[#C7483B] hover:bg-[#C44B3A] text-white p-4 rounded-full shadow-lg flex items-center justify-center"
           title="Upload File"
         >
           <UploadCloud size={24} />

@@ -3,10 +3,11 @@ import axios from "axios";
 export const loginAction = async (formData, config) => {
   try {
     const { data, error } = await axios.post(
-      "https://bitdrive-server.vercel.app/api/v1/user/signin",
+      "http://localhost:3000/api/v1/user/signin",
       formData,
       config
     );
+
 
     return data;
   } catch (error) {
@@ -16,12 +17,12 @@ export const loginAction = async (formData, config) => {
 export const signupAction = async (formData, config) => {
   try {
     const { data, error } = await axios.post(
-      "https://bitdrive-server.vercel.app/api/v1/user/signup",
+      "http://localhost:3000/api/v1/user/signup",
       formData,
       config
     );
 
-    if (error) {
+     if(error) {
       throw new Error(data.message || "Signup failed");
     }
 

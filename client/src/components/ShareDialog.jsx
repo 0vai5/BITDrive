@@ -29,17 +29,14 @@ const ShareDialog = ({ id }) => {
   const handleShare = async (form) => {
     setLoading(true);
 
+
     try {
-      const { data } = await axios.post(
-        "https://bitdrive-server.vercel.app/api/v1/shareFile/share",
-        {
-          fileID: id,
-          email: form.email.trim(),
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const { data } = await axios.post("http://localhost:3000/api/v1/shareFile/share", {
+        fileID: id,
+        email: form.email.trim(),
+      }, {
+        withCredentials: true,
+      });
 
       toast.success("File shared successfully");
       dispatch(setIsUpdating(!isUpdating));
@@ -61,12 +58,14 @@ const ShareDialog = ({ id }) => {
         <DialogContent>
           <DialogTitle>Share</DialogTitle>
           <DialogDescription>
-            share the file to your loved ones.{" "}
-            <span className="text-red-400">One File At a time.</span>
+            share the file to your loved ones. <span className="text-red-400">One File At a time.</span>
           </DialogDescription>
           <form onSubmit={handleSubmit(handleShare)}>
             <Label htmlFor="rename">Emails</Label>
-            <Input type="text" {...register("email", { required: true })} />
+            <Input
+              type="text"
+              {...register("email", { required: true })}
+            />
             <Button
               variant={"default"}
               disabled={loading}

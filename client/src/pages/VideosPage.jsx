@@ -10,7 +10,7 @@ const VideosPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/video",
+        "http://localhost:3000/api/v1/file/getFileByCategory/video",
         {
           withCredentials: true,
         }
@@ -27,7 +27,7 @@ const VideosPage = () => {
       toast.error(error.response?.data?.message || "Failed to fetch files");
     }
   };
-
+  
   useEffect(() => {
     fetchFiles();
   }, [isUpdating]);

@@ -12,11 +12,12 @@ const SharedPage = () => {
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
-        `https://bitdrive-server.vercel.app/api/v1/shareFile/getSharedFiles/${user._id}`,
+        `http://localhost:3000/api/v1/shareFile/getSharedFiles/${user._id}`,
         {
           withCredentials: true,
         }
       );
+
 
       setFiles(data.data);
 
@@ -41,7 +42,9 @@ const SharedPage = () => {
       </h1>
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
         {files.length > 0 ? (
-          files.map((file, index) => <SharedFileCard key={index} file={file} />)
+          files.map((file, index) => (
+            <SharedFileCard key={index} file={file} />
+          ))
         ) : (
           <div className="text-gray-400 w-full">
             No files found for this category
