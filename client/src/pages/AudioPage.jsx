@@ -11,7 +11,7 @@ const AudioPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/api/v1/file/getFileByCategory/audio",
+        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/audio",
         {
           withCredentials: true,
         }
@@ -28,7 +28,7 @@ const AudioPage = () => {
       toast.error(error.response?.data?.message || "Failed to fetch files");
     }
   };
-  
+
   useEffect(() => {
     fetchFiles();
   }, [isUpdating]);

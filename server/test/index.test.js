@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const url = "http://localhost:3000/api/v1";
+const url = "https://bitdrive-server.vercel.app/api/v1";
 const email = `test-${Math.ceil(Math.random() * 100000)}@test.com`;
 const password = "test123";
 const name = `test-${Date.now()}`;
@@ -86,8 +86,7 @@ describe("User", () => {
       if (response && response.data) {
         token = response.data.token;
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   });
 
   test("Should be able to get user profile", async () => {
@@ -168,7 +167,7 @@ describe("User", () => {
     } catch (error) {
       expect(error.response.status).toBe(401);
     }
-  })
+  });
 
   test("Can get current user", async () => {
     const response = await axios.get(`${url}/user/getCurrentUser`, {

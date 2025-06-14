@@ -11,12 +11,11 @@ const ImagesPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/api/v1/file/getFileByCategory/image",
+        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/image",
         {
           withCredentials: true,
         }
       );
-
 
       setFiles(data.data);
 
@@ -33,7 +32,7 @@ const ImagesPage = () => {
   useEffect(() => {
     fetchFiles();
   }, [isUpdating]);
-  
+
   return (
     <main className="bg-white m-10">
       <Toaster />

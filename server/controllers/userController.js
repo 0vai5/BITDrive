@@ -189,7 +189,11 @@ export const userController = {
 
   async logoutUser(req, res) {
     try {
-      res.clearCookie("token", { path: "/" });
+      res.clearCookie("token", {
+        path: "/",
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
 
       return res.status(200).json(new ApiResponse(200, "User logged out"));
     } catch (error) {

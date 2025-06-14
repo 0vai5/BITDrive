@@ -28,7 +28,7 @@ const OptionDialog = ({ rename, id }) => {
     try {
       setLoading(true);
       const { data } = await axios.delete(
-        `http://localhost:3000/api/v1/file/deleteFile/${id}`,
+        `https://bitdrive-server.vercel.app/api/v1/file/deleteFile/${id}`,
         {
           withCredentials: true,
         }

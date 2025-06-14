@@ -11,7 +11,7 @@ const OthersPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/api/v1/file/getFileByCategory/other",
+        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/other",
         {
           withCredentials: true,
         }
@@ -32,7 +32,7 @@ const OthersPage = () => {
   useEffect(() => {
     fetchFiles();
   }, [isUpdating]);
-  
+
   return (
     <main className="bg-white m-10">
       <Toaster />
