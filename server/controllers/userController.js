@@ -70,6 +70,7 @@ export const userController = {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
       };
 
       return res
@@ -193,6 +194,7 @@ export const userController = {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
       });
 
       return res.status(200).json(new ApiResponse(200, "User logged out"));
