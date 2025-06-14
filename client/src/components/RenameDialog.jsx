@@ -46,7 +46,7 @@ const RenameDialog = ({ rename, id }) => {
     try {
       setLoading(true);
       const { data } = await axios.patch(
-        `http://localhost:3000/api/v1/file/updateFile/${id}`,
+        `https://bitdrive-server.vercel.app/api/v1/file/updateFile/${id}`,
         {
           name: updatedName,
         },

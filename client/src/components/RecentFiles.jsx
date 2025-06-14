@@ -13,7 +13,7 @@ const RecentFiles = () => {
   const getUserFiles = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:3000/api/v1/file/getUserFiles",
+        "https://bitdrive-server.vercel.app/api/v1/file/getUserFiles",
         {
           withCredentials: true,
         }
