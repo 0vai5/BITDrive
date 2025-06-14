@@ -70,6 +70,7 @@ export const userController = {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
       };
 
       return res
