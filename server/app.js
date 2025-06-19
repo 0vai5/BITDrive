@@ -30,7 +30,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://bitdrive.vercel.app"],
+    origin: "https://bitdrive.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
