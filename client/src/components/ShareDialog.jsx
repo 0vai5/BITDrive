@@ -31,7 +31,7 @@ const ShareDialog = ({ id }) => {
 
     try {
       const { data } = await axios.post(
-        "https://bitdrive-server.vercel.app/api/v1/shareFile/share",
+        `${import.meta.env.VITE_BASE_URL}/shareFile/share`,
         {
           fileID: id,
           email: form.email.trim(),

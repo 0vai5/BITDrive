@@ -12,7 +12,7 @@ const SharedPage = () => {
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
-        `https://bitdrive-server.vercel.app/api/v1/shareFile/getSharedFiles/${user._id}`,
+        `${import.meta.env.VITE_BASE_URL}/shareFile/getSharedFiles/${user._id}`,
         {
           withCredentials: true,
         }

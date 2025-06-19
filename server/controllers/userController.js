@@ -67,15 +67,15 @@ export const userController = {
 
       const options = {
         maxAge: 3600 * 1000,
-        path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
+        sameSite: "lax",
       };
+
+      res.cookie("token", token, options);
 
       return res
         .status(200)
-        .cookie("token", token, options)
         .json(new ApiResponse(200, "User logged in", user, token));
     } catch (error) {
       return res
@@ -191,10 +191,9 @@ export const userController = {
   async logoutUser(req, res) {
     try {
       res.clearCookie("token", {
-        path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
+        sameSite: "lax",
       });
 
       return res.status(200).json(new ApiResponse(200, "User logged out"));

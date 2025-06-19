@@ -13,7 +13,7 @@ export const fetchCurrentUser = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const { data, status } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/user/getCurrentUser",
+        `${import.meta.env.VITE_BASE_URL}/user/getCurrentUser`,
         {
           withCredentials: true,
         }

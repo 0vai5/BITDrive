@@ -11,7 +11,7 @@ const ImagesPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/image",
+        `${import.meta.env.VITE_BASE_URL}/file/getFilesByCategory/image`,
         {
           withCredentials: true,
         }

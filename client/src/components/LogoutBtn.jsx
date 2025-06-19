@@ -14,7 +14,7 @@ const LogoutBtn = () => {
   const logoutHandler = async () => {
     try {
       const { data } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/user/logout",
+        `${import.meta.env.VITE_BASE_URL}/user/logout`,
         {
           withCredentials: true,
         }

@@ -13,7 +13,7 @@ const RecentFiles = () => {
   const getUserFiles = async () => {
     try {
       const { data } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/file/getUserFiles",
+       `${import.meta.env.VITE_BASE_URL}/file/getUserFiles`,
         {
           withCredentials: true,
         }

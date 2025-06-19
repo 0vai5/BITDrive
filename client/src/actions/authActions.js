@@ -3,7 +3,7 @@ import axios from "axios";
 export const loginAction = async (formData, config) => {
   try {
     const { data, error } = await axios.post(
-      "https://bitdrive-server.vercel.app/api/v1/user/signin",
+      `${import.meta.env.VITE_BASE_URL}/user/signin`,
       formData,
       config
     );
@@ -16,7 +16,7 @@ export const loginAction = async (formData, config) => {
 export const signupAction = async (formData, config) => {
   try {
     const { data, error } = await axios.post(
-      "https://bitdrive-server.vercel.app/api/v1/user/signup",
+      `${import.meta.env.VITE_BASE_URL}/user/signup`,
       formData,
       config
     );

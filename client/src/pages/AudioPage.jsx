@@ -11,7 +11,7 @@ const AudioPage = () => {
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
-        "https://bitdrive-server.vercel.app/api/v1/file/getFileByCategory/audio",
+        `${import.meta.env.VITE_BASE_URL}/file/getFilesByCategory/audio`,
         {
           withCredentials: true,
         }

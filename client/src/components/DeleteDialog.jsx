@@ -28,7 +28,7 @@ const OptionDialog = ({ rename, id }) => {
     try {
       setLoading(true);
       const { data } = await axios.delete(
-        `https://bitdrive-server.vercel.app/api/v1/file/deleteFile/${id}`,
+        `${import.meta.env.VITE_BASE_URL}/file/deleteFile/${id}`,
         {
           withCredentials: true,
         }

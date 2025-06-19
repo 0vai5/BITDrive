@@ -44,7 +44,7 @@ const FileUploader = () => {
 
     try {
       const res = await axios.post(
-        "https://bitdrive-server.vercel.app/api/v1/file/createFile",
+        `${import.meta.env.VITE_BASE_URL}/file/createFile`,
         formData,
         {
           withCredentials: true,
