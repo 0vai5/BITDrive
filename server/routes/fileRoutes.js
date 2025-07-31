@@ -6,7 +6,7 @@ import upload from "../middleware/fileUploadMiddleware.js";
 
 fileRouter.post("/createFile", authenticate, upload.single("file"),fileController.createFile);
 fileRouter.get(
-  "/getFileByCategory/:category",
+  "/getFilesByCategory/:category",
   authenticate,
   fileController.getFileByCategory
 );

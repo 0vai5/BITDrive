@@ -7,16 +7,8 @@ import userRouter from "./routes/userRoutes.js";
 import fileRouter from "./routes/fileRoutes.js";
 import morgan from "morgan";
 import shareFileRouter from "./routes/shareFiles.js";
-import fs from "fs";
-import path from "path";
-
 dotenv.config();
 
-// Ensure uploads directory exists
-const uploadsDir = path.join(process.cwd(), "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-}
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -30,7 +22,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://bitdrive.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
