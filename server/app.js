@@ -9,7 +9,6 @@ import morgan from "morgan";
 import shareFileRouter from "./routes/shareFiles.js";
 dotenv.config();
 
-
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -20,13 +19,35 @@ app.use(
     extended: true,
   })
 );
+
 app.use(
   cors({
-    origin: "https://bitdrive.vercel.app",
+    origin: [
+      "https://bitdrive.vercel.app",
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+    ],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+    ],
+    exposedHeaders: ["Set-Cookie"],
+    preflightContinue: false,
+    optionsSuccessStatus: 200,
   })
 );
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - Origin: ${req.get("Origin")}`);
+  next();
+});
+
 app.use(morgan("dev"));
 
 connectDB();
