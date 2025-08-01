@@ -42,7 +42,6 @@ const CustomForm = ({ FormType }) => {
       if (FormType === "login") {
         const response = await loginAction(data);
 
-        console.log("Login response:", response);
 
         toast.success(response.message);
 

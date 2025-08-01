@@ -22,22 +22,8 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "https://bitdrive.vercel.app",
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "http://127.0.0.1:5173",
-    ],
-    credentials: true,
+    origin: "https://bitdrive.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-      "X-Requested-With",
-      "Accept",
-      "Origin",
-    ],
-    exposedHeaders: ["Set-Cookie"],
     preflightContinue: false,
     optionsSuccessStatus: 200,
   })
