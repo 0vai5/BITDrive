@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
 import Cookies from "js-cookie";
+import { LoaderCircle } from "lucide-react";
 
 const RenameDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,14 +62,14 @@ const RenameDialog = ({ rename, id }) => {
 
       toast.success(data.message);
 
-      setLoading(false);
       setIsOpen(false);
 
       setNewName("");
       dispatch(setIsUpdating(!isUpdating));
     } catch (error) {
-      setLoading(false);
       toast.error(error.response?.data?.message || "Failed to rename file");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,7 +99,7 @@ const RenameDialog = ({ rename, id }) => {
             type="submit"
             className={"mt-4"}
           >
-            {loading ? "Renaming" : "Rename"}
+            {loading ? <LoaderCircle className="w-5 h-5 animate-spin" /> : "Rename"}
           </Button>
         </form>
       </DialogContent>

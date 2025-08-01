@@ -15,6 +15,7 @@ import { MoonLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
 import Cookies from "js-cookie";
+import { LoaderCircle } from "lucide-react";
 
 const ShareDialog = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +78,11 @@ const ShareDialog = ({ id }) => {
               type="submit"
               className={"mt-4"}
             >
-              {loading ? <MoonLoader size={20} color="black" /> : "Share"}
+              {loading ? (
+                <LoaderCircle className="w-5 h-5 animate-spin" />
+              ) : (
+                "Share"
+              )}
             </Button>
           </form>
         </DialogContent>

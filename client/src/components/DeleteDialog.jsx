@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
 import Cookies from "js-cookie";
+import { LoaderCircle } from "lucide-react";
 
 const OptionDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,9 +43,9 @@ const OptionDialog = ({ rename, id }) => {
       toast.success(data.message);
 
       dispatch(setIsUpdating(!isUpdating));
-      setLoading(false);
     } catch (error) {
       toast.error(error.response?.data?.message || "Deletion failed");
+    } finally {
       setLoading(false);
     }
   };
@@ -64,7 +65,11 @@ const OptionDialog = ({ rename, id }) => {
           disabled={loading}
           onClick={handleDeletion}
         >
-          {loading ? "Deleting" : "Delete"}
+          {loading ? (
+            <LoaderCircle className="w-5 h-5 animate-spin" />
+          ) : (
+            "Delete"
+          )}
         </Button>
       </DialogContent>
     </Dialog>

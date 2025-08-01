@@ -15,7 +15,7 @@ import {
   Input,
   Label,
 } from "@/components";
-import { UploadCloud } from "lucide-react";
+import { LoaderCircle, UploadCloud } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import axios from "axios";
@@ -102,7 +102,7 @@ const FileUploader = () => {
           )}
           <div className="flex justify-end mt-4">
             <Button type="submit" disabled={loading}>
-              {loading ? <MoonLoader size={20} color="black" /> : "Upload"}
+              {loading ? <LoaderCircle className="w-5 h-5 animate-spin" /> : "Upload"}
             </Button>
           </div>
         </form>
