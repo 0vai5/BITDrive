@@ -19,13 +19,8 @@ const fileController = {
 
       if (!file) throw new CustomError("Please upload a file", 400);
 
-      const fileLocalPath = file.path;
+      const createdFile = await fileUploadToCloudinary(file.buffer);
       const fileLocalName = file.originalname;
-
-      if (!fileLocalPath || !fileLocalName)
-        throw new CustomError("File not uploaded", 400);
-
-      const createdFile = await fileUploadToCloudinary(fileLocalPath);
       if (!createdFile) throw new CustomError("File not uploaded", 400);
 
       const newFile = await File.create({
