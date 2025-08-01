@@ -23,6 +23,7 @@ import {
   setIsLoggedIn,
 } from "../features/global/globalSlice";
 import Cookies from "js-cookie";
+import { LoaderCircle } from "lucide-react";
 
 const CustomForm = ({ FormType }) => {
   const navigate = useNavigate();
@@ -144,7 +145,7 @@ const CustomForm = ({ FormType }) => {
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? (
-                  <MoonLoader size={20} color="black" />
+                  <LoaderCircle className="w-5 h-5 animate-spin" />
                 ) : FormType === "login" ? (
                   "Login"
                 ) : (
