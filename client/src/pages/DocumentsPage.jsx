@@ -1,5 +1,6 @@
 import { FileCard, Toaster } from "@/components";
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
@@ -7,13 +8,16 @@ import { toast } from "sonner";
 const DocumentsPage = () => {
   const [files, setFiles] = useState([]);
   const isUpdating = useSelector((state) => state.global.isUpdating);
+  const token = Cookies.get("token");
 
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/file/getFilesByCategory/document`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
         }
       );
 

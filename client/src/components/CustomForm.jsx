@@ -22,6 +22,7 @@ import {
   setUser,
   setIsLoggedIn,
 } from "../features/global/globalSlice";
+import Cookies from "js-cookie";
 
 const CustomForm = ({ FormType }) => {
   const navigate = useNavigate();
@@ -33,25 +34,32 @@ const CustomForm = ({ FormType }) => {
     formState: { errors },
   } = useForm();
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   const authHandler = async (data) => {
     try {
       setLoading(true);
       if (FormType === "login") {
-        const response = await loginAction(data, { withCredentials: true });
+        const response = await loginAction(data);
+
+        console.log("Login response:", response);
+
         toast.success(response.message);
 
-        if(response.status !== 200) {
+        if (response.status !== 200) {
           throw new Error(response.message || "Login failed");
         }
 
         dispatch(setUser(response.data));
         dispatch(setIsLoggedIn(true));
+
+        Cookies.set("token", response.token);
+
         navigate("/");
       } else {
-        const response = await signupAction(data, { withCredentials: true });
+        const response = await signupAction(data);
 
-         if(response.status !== 201) {
+        if (response.status !== 201) {
           throw new Error(response.message || "Signup failed");
         }
 

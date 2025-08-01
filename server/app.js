@@ -43,11 +43,6 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path} - Origin: ${req.get("Origin")}`);
-  next();
-});
-
 app.use(morgan("dev"));
 
 connectDB();

@@ -1,11 +1,11 @@
 import react from "react";
 import { Button, Toaster } from "@/components";
 import { LogOut } from "lucide-react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetGlobalState } from "@/features/global/globalSlice";
+import Cookies from "js-cookie";
 
 const LogoutBtn = () => {
   const dispatch = useDispatch();
@@ -13,20 +13,12 @@ const LogoutBtn = () => {
 
   const logoutHandler = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BASE_URL}/user/logout`,
-        {
-          withCredentials: true,
-        }
-      );
-
-      toast.success(data.message);
-
+      Cookies.remove("token");
       dispatch(resetGlobalState());
 
       navigate("/login");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Logout failed");
+      toast.error("Logout failed");
     }
   };
 

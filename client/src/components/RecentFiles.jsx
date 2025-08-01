@@ -4,18 +4,22 @@ import axios from "axios";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const RecentFiles = () => {
   const [files, setFiles] = useState([]);
   const isUpdating = useSelector((state) => state.global.isUpdating);
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   const getUserFiles = async () => {
     try {
       const { data } = await axios.get(
-       `${import.meta.env.VITE_BASE_URL}/file/getUserFiles`,
+        `${import.meta.env.VITE_BASE_URL}/file/getUserFiles`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

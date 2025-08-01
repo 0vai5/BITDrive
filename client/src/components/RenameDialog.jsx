@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
+import Cookies from "js-cookie";
 
 const RenameDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,7 @@ const RenameDialog = ({ rename, id }) => {
   const [newName, setNewName] = useState(rename);
   const isUpdating = useSelector((state) => state.global.isUpdating);
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   useEffect(() => {
     setNewName(rename);
@@ -51,7 +53,9 @@ const RenameDialog = ({ rename, id }) => {
           name: updatedName,
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

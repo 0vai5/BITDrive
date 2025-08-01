@@ -4,7 +4,7 @@ import { CustomError } from "../utils/customError.js";
 
 const authenticate = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization?.split(" ")[1] || req.cookies.token;
 
     if (!token) throw new CustomError("Not Authorized", 401);
 
@@ -12,6 +12,9 @@ const authenticate = async (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
+
+    console.error("Authentication error:", error);
+
     return res
       .status(error.status || 500)
       .json(new ApiResponse(error.status || 500, error.message));

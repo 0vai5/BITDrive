@@ -14,12 +14,14 @@ import { toast } from "sonner";
 import { MoonLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
+import Cookies from "js-cookie";
 
 const ShareDialog = ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const isUpdating = useSelector((state) => state.global.isUpdating);
+  const token = Cookies.get("token");
 
   const handleOpen = (event) => {
     event.preventDefault();
@@ -37,7 +39,9 @@ const ShareDialog = ({ id }) => {
           email: form.email.trim(),
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

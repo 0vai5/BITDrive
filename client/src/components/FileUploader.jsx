@@ -22,6 +22,7 @@ import axios from "axios";
 import { MoonLoader } from "react-spinners";
 import { setIsUpdating } from "@/features/global/globalSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const FileUploader = () => {
   const {
@@ -34,6 +35,7 @@ const FileUploader = () => {
   const [open, setOpen] = useState(false);
   const isUpdating = useSelector((state) => state.global.isUpdating);
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   const fileSubmission = async (data) => {
     setOpen(true);
@@ -47,7 +49,10 @@ const FileUploader = () => {
         `${import.meta.env.VITE_BASE_URL}/file/createFile`,
         formData,
         {
-          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

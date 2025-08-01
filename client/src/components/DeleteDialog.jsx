@@ -12,12 +12,14 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsUpdating } from "@/features/global/globalSlice";
+import Cookies from "js-cookie";
 
 const OptionDialog = ({ rename, id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const isUpdating = useSelector((state) => state.global.isUpdating);
   const dispatch = useDispatch();
+  const token = Cookies.get("token");
 
   const handleOpen = (event) => {
     event.preventDefault();
@@ -30,7 +32,9 @@ const OptionDialog = ({ rename, id }) => {
       const { data } = await axios.delete(
         `${import.meta.env.VITE_BASE_URL}/file/deleteFile/${id}`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

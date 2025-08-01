@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const initialState = {
   isLoggedIn: false,
@@ -12,10 +13,16 @@ export const fetchCurrentUser = createAsyncThunk(
   "global/fetchCurrentUser",
   async (thunkAPI) => {
     try {
+      const token = Cookies.get("token");
+      if (!token) {
+        return thunkAPI.rejectWithValue("No token found");
+      }
       const { data, status } = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/user/getCurrentUser`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 

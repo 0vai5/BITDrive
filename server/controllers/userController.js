@@ -65,15 +65,6 @@ export const userController = {
         expiresIn: "1d",
       });
 
-      const options = {
-        maxAge: 3600 * 1000,
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-      };
-
-      res.cookie("token", token, options);
-
       return res
         .status(200)
         .json(new ApiResponse(200, "User logged in", user, token));

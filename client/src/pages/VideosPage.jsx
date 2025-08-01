@@ -3,16 +3,20 @@ import { FileCard } from "@/components";
 import { toast, Toaster } from "sonner";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 const VideosPage = () => {
   const [files, setFiles] = useState([]);
   const isUpdating = useSelector((state) => state.global.isUpdating);
+  const token = Cookies.get("token");
 
   const fetchFiles = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/file/getFilesByCategory/video`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
         }
       );
 

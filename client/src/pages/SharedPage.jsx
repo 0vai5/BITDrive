@@ -3,18 +3,22 @@ import { Toaster, FileCard, FileLogo, SharedFileCard } from "@/components";
 import axios from "axios";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 const SharedPage = () => {
   const [files, setFiles] = useState([]);
 
   const user = useSelector((state) => state.global.user);
+  const token = Cookies.get("token");
 
   const fetchSharedFiles = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/shareFile/getSharedFiles/${user._id}`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
         }
       );
 
